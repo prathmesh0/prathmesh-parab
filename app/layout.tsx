@@ -35,6 +35,10 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Prathmesh Parab", url: "https://prathmeshparab.dev" }],
   creator: "Prathmesh Parab",
+  icons: {
+    icon: "/favicon.svg",
+    apple: "/favicon.svg",
+  },
   openGraph: {
     type: "website",
     locale: "en_US",

@@ -8,8 +8,11 @@ export function ScrollProgress() {
   return (
     <div className="fixed top-0 left-0 right-0 h-[3px] z-[60] bg-transparent">
       <div
-        className="h-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 transition-all duration-75"
-        style={{ width: `${progress}%` }}
+        className="h-full transition-all duration-75"
+        style={{
+          width: `${progress}%`,
+          background: "linear-gradient(to right, var(--gradient-start), var(--gradient-end))",
+        }}
       />
     </div>
   );

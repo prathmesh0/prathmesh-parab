@@ -1,37 +1,50 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Sun, Moon, Monitor, Download } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { useActiveSection } from "@/hooks/useActiveSection";
-import { useTheme } from "@/components/providers/ThemeProvider";
-import { COLOR_THEMES, type DarkMode } from "@/lib/theme-config";
-import { cn } from "@/lib/utils";
-import { profile } from "@/content/profile";
-import { ThemeModeDropdown } from "@/components/ui/ThemeModeDropdown";
-import { ColorThemeDropdown } from "@/components/ui/ColorThemeDropdown";
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, X, Sun, Moon, Monitor, Download } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { useActiveSection } from '@/hooks/useActiveSection';
+import { useTheme } from '@/components/providers/ThemeProvider';
+import { COLOR_THEMES, type DarkMode } from '@/lib/theme-config';
+import { cn } from '@/lib/utils';
+import { profile } from '@/content/profile';
+import { ThemeModeDropdown } from '@/components/ui/ThemeModeDropdown';
+import { ColorThemeDropdown } from '@/components/ui/ColorThemeDropdown';
+import { Logo } from '@/components/shared/Logo';
 
 const NAV_ITEMS = [
-  { label: "Home",       href: "#home" },
-  { label: "About",      href: "#about" },
-  { label: "Experience", href: "#experience" },
-  { label: "Skills",     href: "#skills" },
-  { label: "Projects",   href: "#projects" },
-  { label: "Blogs",      href: "#blogs" },
-  { label: "Contact",    href: "#contact" },
+  { label: 'Home', href: '#home' },
+  { label: 'About', href: '#about' },
+  { label: 'Experience', href: '#experience' },
+  { label: 'Skills', href: '#skills' },
+  { label: 'Projects', href: '#projects' },
+  { label: 'Blogs', href: '#blogs' },
+  { label: 'Contact', href: '#contact' },
 ];
 
-const SECTION_IDS = ["home", "about", "experience", "skills", "projects", "blogs", "contact"];
+const SECTION_IDS = [
+  'home',
+  'about',
+  'experience',
+  'skills',
+  'projects',
+  'blogs',
+  'contact',
+];
 
-const MODE_OPTIONS: { id: DarkMode; icon: React.ComponentType<{ className?: string }>; label: string }[] = [
-  { id: "light",  icon: Sun,     label: "Light"  },
-  { id: "dark",   icon: Moon,    label: "Dark"   },
-  { id: "system", icon: Monitor, label: "System" },
+const MODE_OPTIONS: {
+  id: DarkMode;
+  icon: React.ComponentType<{ className?: string }>;
+  label: string;
+}[] = [
+  { id: 'light', icon: Sun, label: 'Light' },
+  { id: 'dark', icon: Moon, label: 'Dark' },
+  { id: 'system', icon: Monitor, label: 'System' },
 ];
 
 export function Navbar() {
-  const [scrolled, setScrolled]     = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const { mode, color, setMode, setColor } = useTheme();
@@ -39,14 +52,14 @@ export function Navbar() {
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   const handleNavClick = (href: string) => {
     setMobileOpen(false);
-    const id = href.replace("#", "");
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    const id = href.replace('#', '');
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -56,21 +69,20 @@ export function Navbar() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+          'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
           scrolled
-            ? "bg-background/80 backdrop-blur-xl border-b border-border/50 shadow-sm"
-            : "bg-transparent"
+            ? 'bg-background/80 backdrop-blur-xl border-b border-border/50 shadow-sm'
+            : 'bg-transparent',
         )}
       >
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-
             {/* Logo */}
             <button
-              onClick={() => handleNavClick("#home")}
-              className="text-xl font-bold gradient-text hover:opacity-80 transition-opacity"
+              onClick={() => handleNavClick('#home')}
+              className="hover:opacity-80 transition-opacity"
             >
-              PP<span className="text-primary">.</span>
+              <Logo size={40} />
             </button>
 
             {/* Desktop Nav */}
@@ -80,10 +92,10 @@ export function Navbar() {
                   <button
                     onClick={() => handleNavClick(item.href)}
                     className={cn(
-                      "px-3 py-2 rounded-md text-sm font-medium transition-all duration-200",
-                      activeSection === item.href.replace("#", "")
-                        ? "text-primary bg-primary/10"
-                        : "text-muted-foreground hover:text-foreground hover:bg-accent"
+                      'px-3 py-2 rounded-md text-sm font-medium transition-all duration-200',
+                      activeSection === item.href.replace('#', '')
+                        ? 'text-primary bg-primary/10'
+                        : 'text-muted-foreground hover:text-foreground hover:bg-accent',
                     )}
                   >
                     {item.label}
@@ -104,7 +116,12 @@ export function Navbar() {
                 <ColorThemeDropdown />
               </div>
 
-              <Button variant="gradient" size="sm" className="hidden md:flex gap-2" asChild>
+              <Button
+                variant="gradient"
+                size="sm"
+                className="hidden md:flex gap-2"
+                asChild
+              >
                 <a href={profile.resume} download>
                   <Download className="h-4 w-4" />
                   Resume
@@ -119,7 +136,11 @@ export function Navbar() {
                 onClick={() => setMobileOpen(!mobileOpen)}
                 aria-label="Toggle menu"
               >
-                {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+                {mobileOpen ? (
+                  <X className="h-5 w-5" />
+                ) : (
+                  <Menu className="h-5 w-5" />
+                )}
               </Button>
             </div>
           </div>
@@ -130,9 +151,9 @@ export function Navbar() {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0, x: "100%" }}
+            initial={{ opacity: 0, x: '100%' }}
             animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: "100%" }}
+            exit={{ opacity: 0, x: '100%' }}
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
             className="fixed inset-0 z-40 bg-background/95 backdrop-blur-xl md:hidden flex flex-col pt-20 px-8 pb-8"
           >
@@ -163,10 +184,10 @@ export function Navbar() {
                     key={id}
                     onClick={() => setMode(id)}
                     className={cn(
-                      "flex flex-col items-center gap-1 py-2 rounded-xl text-xs font-medium transition-all",
+                      'flex flex-col items-center gap-1 py-2 rounded-xl text-xs font-medium transition-all',
                       mode === id
-                        ? "bg-primary text-primary-foreground"
-                        : "bg-secondary text-secondary-foreground"
+                        ? 'bg-primary text-primary-foreground'
+                        : 'bg-secondary text-secondary-foreground',
                     )}
                   >
                     <Icon className="h-4 w-4" />
@@ -183,8 +204,10 @@ export function Navbar() {
                     onClick={() => setColor(theme.id)}
                     aria-label={theme.label}
                     className={cn(
-                      "w-8 h-8 rounded-full transition-all ring-2 ring-offset-2 ring-offset-background",
-                      color === theme.id ? "ring-foreground scale-110" : "ring-transparent"
+                      'w-8 h-8 rounded-full transition-all ring-2 ring-offset-2 ring-offset-background',
+                      color === theme.id
+                        ? 'ring-foreground scale-110'
+                        : 'ring-transparent',
                     )}
                     style={{ background: theme.swatch }}
                   />

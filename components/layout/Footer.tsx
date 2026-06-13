@@ -1,12 +1,16 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import { Code2, BookOpen, Mail, Heart } from "lucide-react";
-import { GithubIcon, LinkedinIcon } from "@/components/icons/SocialIcons";
-import { socials } from "@/content/socials";
-import { fadeInUp } from "@/animations/variants";
+import { motion } from 'framer-motion';
+import { Code2, BookOpen, Mail, Heart } from 'lucide-react';
+import { GithubIcon, LinkedinIcon } from '@/components/icons/SocialIcons';
+import { socials } from '@/content/socials';
+import { fadeInUp } from '@/animations/variants';
+import { Logo } from '@/components/shared/Logo';
 
-const SOCIAL_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
+const SOCIAL_ICONS: Record<
+  string,
+  React.ComponentType<{ className?: string }>
+> = {
   Github: GithubIcon,
   Linkedin: LinkedinIcon,
   Code2,
@@ -15,17 +19,17 @@ const SOCIAL_ICONS: Record<string, React.ComponentType<{ className?: string }>> 
 };
 
 const NAV_LINKS = [
-  { label: "About", href: "#about" },
-  { label: "Experience", href: "#experience" },
-  { label: "Skills", href: "#skills" },
-  { label: "Projects", href: "#projects" },
-  { label: "Blogs", href: "#blogs" },
-  { label: "Contact", href: "#contact" },
+  { label: 'About', href: '#about' },
+  { label: 'Experience', href: '#experience' },
+  { label: 'Skills', href: '#skills' },
+  { label: 'Projects', href: '#projects' },
+  { label: 'Blogs', href: '#blogs' },
+  { label: 'Contact', href: '#contact' },
 ];
 
 export function Footer() {
   const scrollTo = (href: string) => {
-    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -34,11 +38,12 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           {/* Logo & tagline */}
           <div>
-            <div className="text-2xl font-black gradient-text mb-3">
-              PP<span className="text-primary">.</span>
+            <div className="mb-3">
+              <Logo size={52} />
             </div>
             <p className="text-muted-foreground text-sm leading-relaxed max-w-xs">
-              Building elegant, performant web experiences. Open to new opportunities.
+              Building elegant, performant web experiences. Open to new
+              opportunities.
             </p>
           </div>
 
@@ -69,7 +74,9 @@ export function Footer() {
                   <a
                     key={social.name}
                     href={social.url}
-                    target={social.url.startsWith("mailto") ? undefined : "_blank"}
+                    target={
+                      social.url.startsWith('mailto') ? undefined : '_blank'
+                    }
                     rel="noopener noreferrer"
                     aria-label={social.name}
                     className="w-10 h-10 rounded-xl border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/40 hover:bg-primary/10 transition-all duration-200"
@@ -84,10 +91,15 @@ export function Footer() {
 
         {/* Bottom bar */}
         <div className="border-t border-border pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
-          <p>© {new Date().getFullYear()} Prathmesh Parab. All rights reserved.</p>
+          <p>
+            © {new Date().getFullYear()} Prathmesh Parab. All rights reserved.
+          </p>
           <p className="flex items-center gap-1.5">
-            Built with <Heart className="h-3 w-3 text-rose-500 fill-rose-500" /> using{" "}
-            <span className="text-foreground font-medium">Next.js, TypeScript & Shadcn UI</span>
+            Built with <Heart className="h-3 w-3 text-rose-500 fill-rose-500" />{' '}
+            using{' '}
+            <span className="text-foreground font-medium">
+              Next.js, TypeScript & Shadcn UI
+            </span>
           </p>
         </div>
       </div>

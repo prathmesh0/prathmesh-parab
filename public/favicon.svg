@@ -1,0 +1,38 @@
+<svg width="32" height="32" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#6366f1" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0.08"/>
+    </linearGradient>
+    <linearGradient id="glyph" x1="28" y1="24" x2="72" y2="76" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <linearGradient id="border" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#6366f1" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0.4"/>
+    </linearGradient>
+    <clipPath id="hex">
+      <path d="M 50 5 L 80.5 23 Q 89 27.5 89 37.5 L 89 62.5 Q 89 72.5 80.5 77 L 50 95 L 19.5 77 Q 11 72.5 11 62.5 L 11 37.5 Q 11 27.5 19.5 23 Z"/>
+    </clipPath>
+  </defs>
+
+  <!-- Background -->
+  <g clip-path="url(#hex)">
+    <rect width="100" height="100" fill="#0d0d14"/>
+    <rect width="100" height="100" fill="url(#bg)"/>
+  </g>
+
+  <!-- Border -->
+  <path d="M 50 5 L 80.5 23 Q 89 27.5 89 37.5 L 89 62.5 Q 89 72.5 80.5 77 L 50 95 L 19.5 77 Q 11 72.5 11 62.5 L 11 37.5 Q 11 27.5 19.5 23 Z"
+        stroke="url(#border)" stroke-width="1.5" fill="none"/>
+
+  <!-- P monogram -->
+  <g clip-path="url(#hex)">
+    <path fill-rule="evenodd" fill="url(#glyph)"
+      d="M 28 24 L 40 24 C 57 24 64 33 64 42 C 64 51 57 60 40 60 L 39 60 L 39 76 L 28 76 Z
+         M 39 33 L 40 33 C 52 33 54 37.5 54 42 C 54 46.5 52 51 40 51 L 39 51 Z"/>
+    <!-- Accent bar -->
+    <rect x="28" y="72" width="36" height="3.5" rx="1.75" fill="url(#glyph)" opacity="0.55"/>
+  </g>
+</svg>

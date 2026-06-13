@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+/* ─── Logo CSS variable aliases (consumed by Logo.tsx) ──────── */
+:root {
+  --logo-primary: var(--gradient-start);
+  --logo-secondary: var(--gradient-end);
+}
+
 /* ─── Base light theme ─────────────────────────────────────── */
 :root {
   --background: 0 0% 100%;
