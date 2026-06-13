@@ -83,7 +83,7 @@ export function ContactSection() {
             <motion.div variants={fadeInLeft}>
               <h3 className="text-2xl font-bold mb-2">Say Hello 👋</h3>
               <p className="text-muted-foreground leading-relaxed">
-                Whether you have a project, an opportunity, or just want to connect — feel free to reach out. I typically
+                Whether you have a project, an opportunity, or just want to connect - feel free to reach out. I typically
                 respond within 24 hours.
               </p>
             </motion.div>

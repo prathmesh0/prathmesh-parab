@@ -48,7 +48,7 @@ export function ExperienceSection() {
                   <div className="w-4 h-4 rounded-full bg-primary ring-4 ring-primary/20 ring-offset-2 ring-offset-background" />
                 </div>
 
-                {/* Left side — dates */}
+                {/* Left side - dates */}
                 <div className="hidden md:flex flex-col items-end pt-6 pr-8">
                   <div className="text-right">
                     <span className="text-muted-foreground text-sm">{exp.period}</span>
@@ -62,7 +62,7 @@ export function ExperienceSection() {
                   </div>
                 </div>
 
-                {/* Right side — card */}
+                {/* Right side - card */}
                 <div className="md:pl-8 pt-0 md:pt-6">
                   <div className="bg-card border border-border rounded-2xl p-6 hover:shadow-xl hover:shadow-primary/10 hover:border-primary/30 transition-all duration-300 group">
                     {/* Mobile date */}

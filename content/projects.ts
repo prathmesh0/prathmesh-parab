@@ -7,7 +7,7 @@ export const projects: Project[] = [
     description:
       "AI-powered repository analysis platform that visualizes codebases and provides intelligent insights through a conversational interface.",
     longDescription:
-      "RepoLens transforms the way developers understand large codebases. It uses advanced AI to analyze repository structure, dependencies, and patterns — then surfaces insights through a natural chat interface.",
+      "RepoLens transforms the way developers understand large codebases. It uses advanced AI to analyze repository structure, dependencies, and patterns - then surfaces insights through a natural chat interface.",
     image: "/images/projects/repolens.png",
     technologies: ["Next.js", "Node.js", "MongoDB", "AI", "TypeScript"],
     liveUrl: "https://repolens.vercel.app",

@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://prathmeshparab.dev"),
   title: {
-    default: "Prathmesh Parab — Software Engineer & Frontend Developer",
+    default: "Prathmesh Parab - Software Engineer",
     template: "%s | Prathmesh Parab",
   },
   description:
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://prathmeshparab.dev",
-    title: "Prathmesh Parab — Software Engineer & Frontend Developer",
+    title: "Prathmesh Parab - Software Engineer & Frontend Developer",
     description:
       "Building high-performance, visually stunning web and mobile experiences.",
     siteName: "Prathmesh Parab Portfolio",
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Prathmesh Parab — Software Engineer",
+    title: "Prathmesh Parab - Software Engineer",
     description: "Building high-performance web and mobile experiences.",
     images: ["/og-image.png"],
   },

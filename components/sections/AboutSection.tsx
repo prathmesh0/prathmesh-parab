@@ -150,7 +150,7 @@ export function AboutSection() {
                     <span className="text-sm font-semibold">Philosophy</span>
                   </div>
                   <p className="text-muted-foreground text-sm leading-relaxed">
-                    &ldquo;Code is not just instructions for machines — it&apos;s a craft. I strive to write code that is
+                    &ldquo;Code is not just instructions for machines - it&apos;s a craft. I strive to write code that is
                     elegant, maintainable, and impactful.&rdquo;
                   </p>
                 </CardContent>

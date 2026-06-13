@@ -17,7 +17,7 @@ export const blogs: BlogPost[] = [
     id: "flutter-firebase",
     title: "Building Production-Ready Flutter Apps with Firebase",
     summary:
-      "A comprehensive guide to integrating Firebase services into Flutter applications — from Auth to Firestore to Cloud Functions.",
+      "A comprehensive guide to integrating Firebase services into Flutter applications - from Auth to Firestore to Cloud Functions.",
     coverImage: "/images/blogs/flutter-firebase.jpg",
     publishedAt: "2024-09-20",
     readTime: "10 min read",
