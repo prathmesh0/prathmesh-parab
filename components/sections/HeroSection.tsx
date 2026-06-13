@@ -23,59 +23,60 @@ const SOCIAL_ICONS: Record<string, React.ComponentType<{ className?: string }>> 
 export function HeroSection() {
   const [wordIndex, setWordIndex] = useState(0);
   const [displayed, setDisplayed] = useState("");
-  const [isDeleting, setIsDeleting] = useState(false);
+  const [phase, setPhase] = useState<"typing" | "pausing" | "deleting">("typing");
   const typingRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const word = TYPEWRITER_WORDS[wordIndex];
-    const speed = isDeleting ? 50 : 80;
 
-    typingRef.current = setTimeout(() => {
-      if (!isDeleting) {
-        setDisplayed(word.slice(0, displayed.length + 1));
-        if (displayed.length + 1 === word.length) {
-          setTimeout(() => setIsDeleting(true), 1500);
-        }
+    if (phase === "typing") {
+      if (displayed.length < word.length) {
+        typingRef.current = setTimeout(() => {
+          setDisplayed(word.slice(0, displayed.length + 1));
+        }, 80);
       } else {
-        setDisplayed(word.slice(0, displayed.length - 1));
-        if (displayed.length === 0) {
-          setIsDeleting(false);
-          setWordIndex((prev) => (prev + 1) % TYPEWRITER_WORDS.length);
-        }
+        typingRef.current = setTimeout(() => setPhase("pausing"), 1500);
       }
-    }, speed);
+    } else if (phase === "pausing") {
+      typingRef.current = setTimeout(() => setPhase("deleting"), 200);
+    } else {
+      if (displayed.length > 0) {
+        typingRef.current = setTimeout(() => {
+          setDisplayed(word.slice(0, displayed.length - 1));
+        }, 45);
+      } else {
+        setWordIndex((prev) => (prev + 1) % TYPEWRITER_WORDS.length);
+        setPhase("typing");
+      }
+    }
 
     return () => { if (typingRef.current) clearTimeout(typingRef.current); };
-  }, [displayed, isDeleting, wordIndex]);
+  }, [displayed, phase, wordIndex]);
 
   return (
     <section
       id="home"
       className="relative min-h-screen flex items-center overflow-hidden pt-16"
     >
-      {/* Background decorations */}
+      {/* Background decorations — theme-aware */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute top-1/4 -left-48 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 -right-48 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 -left-48 w-96 h-96 rounded-full blur-3xl opacity-20"
+          style={{ background: "var(--gradient-start)" }} />
+        <div className="absolute bottom-1/4 -right-48 w-96 h-96 rounded-full blur-3xl opacity-15"
+          style={{ background: "var(--gradient-end)" }} />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-3xl" />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+
           {/* Left Content */}
           <motion.div
             variants={staggerContainer}
             initial="hidden"
             animate="visible"
-            className="flex flex-col gap-6"
+            className="flex flex-col gap-5"
           >
-            <motion.div variants={fadeInUp}>
-              <span className="inline-flex items-center gap-2 text-sm font-medium text-primary bg-primary/10 px-4 py-2 rounded-full border border-primary/20">
-                <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                Available for opportunities
-              </span>
-            </motion.div>
-
             <motion.h1
               variants={fadeInUp}
               className="text-5xl sm:text-6xl lg:text-7xl font-black leading-[1.05] tracking-tight"
@@ -84,9 +85,10 @@ export function HeroSection() {
               <span className="gradient-text block">{profile.name}</span>
             </motion.h1>
 
-            <motion.div variants={fadeInUp} className="text-xl sm:text-2xl text-muted-foreground font-medium h-8">
+            {/* Typewriter */}
+            <motion.div variants={fadeInUp} className="text-xl sm:text-2xl text-muted-foreground font-medium h-8 flex items-center">
               <span className="text-foreground">{displayed}</span>
-              <span className="animate-pulse text-primary ml-0.5">|</span>
+              <span className="animate-pulse text-primary ml-0.5 leading-none">|</span>
             </motion.div>
 
             <motion.p
@@ -97,26 +99,26 @@ export function HeroSection() {
             </motion.p>
 
             <motion.div variants={fadeInUp} className="flex flex-wrap gap-3">
-              <Button variant="gradient" size="xl" asChild>
+              <Button variant="gradient" size="lg" asChild>
                 <a href={profile.resume} download>
-                  <Download className="h-5 w-5" />
+                  <Download className="h-4 w-4" />
                   Download Resume
                 </a>
               </Button>
               <Button
                 variant="outline"
-                size="xl"
+                size="lg"
                 onClick={() =>
                   document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })
                 }
               >
                 View Projects
-                <ArrowRight className="h-5 w-5" />
+                <ArrowRight className="h-4 w-4" />
               </Button>
             </motion.div>
 
             {/* Social Links */}
-            <motion.div variants={fadeInUp} className="flex items-center gap-4 pt-2">
+            <motion.div variants={fadeInUp} className="flex items-center gap-4 pt-1">
               {socials.map((social) => {
                 const Icon = SOCIAL_ICONS[social.icon] ?? Mail;
                 return (
@@ -135,7 +137,7 @@ export function HeroSection() {
             </motion.div>
           </motion.div>
 
-          {/* Right – Image */}
+          {/* Right - Image */}
           <motion.div
             variants={fadeInRight}
             initial="hidden"
@@ -143,7 +145,7 @@ export function HeroSection() {
             className="relative flex justify-center"
           >
             <div className="relative">
-              {/* Glow rings */}
+              {/* Rotating rings — theme-aware border color */}
               <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
@@ -152,12 +154,18 @@ export function HeroSection() {
               <motion.div
                 animate={{ rotate: -360 }}
                 transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-                className="absolute inset-0 -m-16 rounded-full border border-dashed border-purple-500/15"
+                className="absolute inset-0 -m-16 rounded-full border border-dashed border-primary/10"
               />
 
               {/* Avatar container */}
               <div className="relative w-72 h-72 sm:w-80 sm:h-80">
-                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 blur-2xl opacity-30 animate-pulse" />
+                {/* Glow — driven by theme CSS vars */}
+                <div
+                  className="absolute inset-0 rounded-full blur-2xl opacity-30 animate-pulse"
+                  style={{
+                    background: "linear-gradient(135deg, var(--gradient-start), var(--gradient-end))",
+                  }}
+                />
                 <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-border/50 shadow-2xl">
                   <Image
                     src={profile.avatar}
@@ -172,22 +180,6 @@ export function HeroSection() {
                   />
                 </div>
               </div>
-
-              {/* Floating badges */}
-              <motion.div
-                animate={{ y: [-6, 6, -6] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute -top-4 -right-4 bg-card border border-border rounded-xl px-3 py-2 shadow-lg text-xs font-semibold"
-              >
-                💼 Open to Work
-              </motion.div>
-              <motion.div
-                animate={{ y: [6, -6, 6] }}
-                transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                className="absolute -bottom-4 -left-4 bg-card border border-border rounded-xl px-3 py-2 shadow-lg text-xs font-semibold"
-              >
-                ⚡ Next.js Expert
-              </motion.div>
             </div>
           </motion.div>
         </div>
@@ -212,3 +204,4 @@ export function HeroSection() {
     </section>
   );
 }
+

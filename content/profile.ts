@@ -12,7 +12,7 @@ export const profile: Profile = {
     'AI Enthusiast',
   ],
   description:
-    'I craft high-performance, visually stunning web experiences. Currently building financial automation platforms and Flutter apps at Lauren IT.',
+    'Building impactful products that solve meaningful problems and create lasting value for users. 🚀',
   email: 'prathmeshparab010@gmail.com',
   location: 'Mumbai, India',
   avatar: '/images/avatar.jpeg',
@@ -28,15 +28,16 @@ export const stats: Stat[] = [
   },
   {
     label: 'Projects Delivered',
-    value: 10,
+    value: 7,
     suffix: '+',
-    description: 'End-to-end products shipped',
+    description: 'Built and launched end-to-end digital products',
   },
   {
-    label: 'Users Reached',
-    value: 5000,
+    label: 'Users Impacted',
+    value: 8000,
     suffix: '+',
-    description: 'Across platforms and apps',
+    description:
+      'Estimated reach across enterprise and public-facing solutions',
   },
   {
     label: 'DSA Problems Solved',

@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { Briefcase, CheckCircle2, ExternalLink } from "lucide-react";
+import { Briefcase, ArrowRight, ExternalLink } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { experiences } from "@/content/experience";
 import { staggerContainer, fadeInUp } from "@/animations/variants";
@@ -94,16 +94,25 @@ export function ExperienceSection() {
                     <p className="text-muted-foreground text-sm mb-4 leading-relaxed">{exp.description}</p>
 
                     {/* Achievements */}
-                    <ul className="space-y-2 mb-4">
+                    <ul className="space-y-2.5 mb-4">
                       {exp.achievements.map((ach, j) => (
-                        <li key={j} className="flex items-start gap-2 text-sm text-muted-foreground">
-                          <CheckCircle2 className="h-4 w-4 text-green-500 mt-0.5 shrink-0" />
-                          {ach}
+                        <li key={j} className="flex items-start gap-2.5 text-sm text-muted-foreground">
+                          <ArrowRight className="h-3.5 w-3.5 text-primary mt-0.5 shrink-0" />
+                          <span>
+                            {ach.split(/(\d+%|\d+x|\d+\+)/g).map((part, k) =>
+                              /^\d+%$|^\d+x$|^\d+\+$/.test(part) ? (
+                                <span key={k} className="font-bold text-primary">{part}</span>
+                              ) : (
+                                part
+                              )
+                            )}
+                          </span>
                         </li>
                       ))}
                     </ul>
 
                     {/* Tech stack */}
+                    {exp.technologies.length > 0 && (
                     <div className="flex flex-wrap gap-2">
                       {exp.technologies.map((tech) => (
                         <Badge key={tech} variant="secondary" className="text-xs">
@@ -111,6 +120,7 @@ export function ExperienceSection() {
                         </Badge>
                       ))}
                     </div>
+                    )}
                   </div>
                 </div>
               </motion.div>
