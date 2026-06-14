@@ -126,7 +126,7 @@ export default function RootLayout({
         {/* Runs before paint — prevents FOUC without triggering React's script warning */}
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
-      <body className="min-h-screen antialiased" suppressHydrationWarning>
+      <body className="min-h-screen antialiased overflow-x-hidden" suppressHydrationWarning>
         <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>

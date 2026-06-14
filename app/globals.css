@@ -85,11 +85,16 @@
   border-color: hsl(var(--border));
 }
 
+html {
+  overflow-x: hidden;
+}
+
 body {
   background-color: hsl(var(--background));
   color: hsl(var(--foreground));
   font-family: var(--font-sans, Arial, sans-serif);
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 /* ─── Scrollbar ─────────────────────────────────────────────── */
