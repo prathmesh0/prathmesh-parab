@@ -16,6 +16,7 @@
  *   #logo-glow      — radial glow layer
  */
 
+import { useId } from "react";
 import { cn } from "@/lib/utils";
 
 interface LogoProps {
@@ -26,7 +27,8 @@ interface LogoProps {
 }
 
 export function Logo({ size = 48, className, variant = "full" }: LogoProps) {
-  const id = `logo-${Math.random().toString(36).slice(2, 7)}`;
+  const uid = useId();
+  const id = `logo-${uid.replace(/:/g, "")}`;
 
   // viewBox is 100×100 — all measurements are in that coordinate space.
   // The hexagon sits in a 90×90 box centred at (50,50), with r=46 and 12px corner radius.
