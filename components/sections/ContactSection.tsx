@@ -133,7 +133,7 @@ export function ContactSection() {
               <h3 className="text-2xl font-bold mb-2">Say Hello 👋</h3>
               <p className="text-muted-foreground leading-relaxed">
                 Whether you have a project, an opportunity, or just want to
-                connect — feel free to reach out. I typically respond within 24
+                connect - feel free to reach out. I typically respond within 24
                 hours.
               </p>
             </motion.div>
@@ -145,7 +145,7 @@ export function ContactSection() {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75" />
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
                 </span>
-                Open to Work &amp; New Opportunities
+                Open to New Opportunities
               </span>
             </motion.div>
 

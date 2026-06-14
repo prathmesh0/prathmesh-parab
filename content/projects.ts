@@ -8,8 +8,7 @@ export const projects: Project[] = [
       'AI-powered developer platform for repository analysis, codebase exploration, file structure visualization, and context-aware assistance.',
     image: '/images/projects/repolens.png',
     technologies: ['Next.js', 'TypeScript', 'Express.js', 'MongoDB', 'AI'],
-    liveUrl:
-      'https://repolens-frontend-3vcn71etf-prathmesh-parabs-projects.vercel.app/home',
+    liveUrl: 'https://repolens-frontend.vercel.app/login',
     featured: true,
     category: 'AI / Web',
   },

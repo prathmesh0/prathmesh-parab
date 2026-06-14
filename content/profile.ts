@@ -15,7 +15,7 @@ export const profile: Profile = {
     'Building impactful products that solve meaningful problems and create lasting value for users. 🚀',
   email: 'prathmeshparab010@gmail.com',
   location: 'Mumbai, India',
-  avatar: '/images/avatar.jpeg',
+  avatar: '/images/myp.png',
   resume: '/resume.pdf',
 };
 

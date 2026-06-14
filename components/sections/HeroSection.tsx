@@ -142,7 +142,7 @@ export function HeroSection() {
             variants={fadeInRight}
             initial="hidden"
             animate="visible"
-            className="relative flex justify-center"
+            className="relative flex justify-center pt-20 lg:pt-0"
           >
             <div className="relative">
               {/* Rotating rings — theme-aware border color */}
