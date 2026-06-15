@@ -1,66 +1,71 @@
-import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import type { Metadata, Viewport } from 'next';
+import { Geist, Geist_Mono } from 'next/font/google';
+import './globals.css';
+import { ThemeProvider } from '@/components/providers/ThemeProvider';
 
 const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-  display: "swap",
+  variable: '--font-geist-sans',
+  subsets: ['latin'],
+  display: 'swap',
 });
 
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-  display: "swap",
+  variable: '--font-geist-mono',
+  subsets: ['latin'],
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://prathmeshparab.dev"),
+  metadataBase: new URL('https://prathmesh-parab-portfolio.vercel.app'),
   title: {
-    default: "Prathmesh Parab - Software Engineer",
-    template: "%s | Prathmesh Parab",
+    default: 'Prathmesh Parab - Software Engineer & Full Stack Developer',
+    template: '%s | Prathmesh Parab',
   },
   description:
-    "Software Engineer & Frontend Developer specializing in Next.js, React, TypeScript, and Flutter. Building high-performance web and mobile applications.",
+    'Software Engineer & Full Stack Developer specializing in Next.js, React, Node.js, TypeScript, and Flutter. Crafting scalable, high-performance web and mobile applications end-to-end.',
   keywords: [
-    "Prathmesh Parab",
-    "Frontend Developer",
-    "Software Engineer",
-    "Next.js Developer",
-    "React Developer",
-    "TypeScript",
-    "Flutter",
-    "Portfolio",
+    'Prathmesh Parab',
+    'Software Developer',
+    'Software Engineer',
+    'Full Stack Developer',
+    'Next.js Developer',
+    'React Developer',
+    'Node.js Developer',
+    'TypeScript',
+    'Flutter Developer',
+    'Web Developer',
+    'Mobile Developer',
+    'Portfolio',
   ],
-  authors: [{ name: "Prathmesh Parab", url: "https://prathmeshparab.dev" }],
-  creator: "Prathmesh Parab",
+  authors: [{ name: 'Prathmesh Parab', url: 'https://prathmesh-parab-portfolio.vercel.app' }],
+  creator: 'Prathmesh Parab',
   icons: {
-    icon: "/favicon.svg",
-    apple: "/favicon.svg",
+    icon: '/favicon.svg',
+    apple: '/favicon.svg',
   },
   openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: "https://prathmeshparab.dev",
-    title: "Prathmesh Parab - Software Engineer & Frontend Developer",
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://prathmesh-parab-portfolio.vercel.app',
+    title: 'Prathmesh Parab - Software Engineer & Full Stack Developer',
     description:
-      "Building high-performance, visually stunning web and mobile experiences.",
-    siteName: "Prathmesh Parab Portfolio",
+      'Software Developer building scalable, high-performance web and mobile applications with Next.js, React, Node.js, and Flutter.',
+    siteName: 'Prathmesh Parab Portfolio',
     images: [
       {
-        url: "/og-image.png",
+        url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: "Prathmesh Parab Portfolio",
+        alt: 'Prathmesh Parab - Software Developer Portfolio',
       },
     ],
   },
   twitter: {
-    card: "summary_large_image",
-    title: "Prathmesh Parab - Software Engineer",
-    description: "Building high-performance web and mobile experiences.",
-    images: ["/og-image.png"],
+    card: 'summary_large_image',
+    title: 'Prathmesh Parab - Software Engineer & Full Stack Developer',
+    description:
+      'Software Developer building scalable web and mobile applications with Next.js, React, Node.js, and Flutter.',
+    images: ['/og-image.png'],
   },
   robots: {
     index: true,
@@ -68,19 +73,19 @@ export const metadata: Metadata = {
     googleBot: {
       index: true,
       follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
     },
   },
 };
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
+    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+    { media: '(prefers-color-scheme: dark)', color: '#0a0a0a' },
   ],
-  width: "device-width",
+  width: 'device-width',
   initialScale: 1,
 };
 
@@ -126,7 +131,10 @@ export default function RootLayout({
         {/* Runs before paint — prevents FOUC without triggering React's script warning */}
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
-      <body className="min-h-screen antialiased overflow-x-hidden" suppressHydrationWarning>
+      <body
+        className="min-h-screen antialiased overflow-x-hidden"
+        suppressHydrationWarning
+      >
         <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
