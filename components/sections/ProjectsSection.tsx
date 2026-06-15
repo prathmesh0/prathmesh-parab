@@ -1,17 +1,50 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, Variants } from "framer-motion";
 import Image from "next/image";
 import { ExternalLink, Star } from "lucide-react";
 import { GithubIcon } from "@/components/icons/SocialIcons";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { projects } from "@/content/projects";
-import { staggerContainer, fadeInUp, scaleIn } from "@/animations/variants";
+import { staggerContainer, fadeInUp } from "@/animations/variants";
 import { cn } from "@/lib/utils";
 
 const FILTERS = ["All", "Web", "Mobile", "AI", "Backend"];
+
+// Card-level stagger: each card's children cascade in
+const cardContainerVariants: Variants = {
+  hidden: { opacity: 0, scale: 0.94 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 0.45,
+      ease: [0.22, 1, 0.36, 1],
+      staggerChildren: 0.12,
+      delayChildren: 0.15,
+    },
+  },
+};
+
+const cardImageVariants: Variants = {
+  hidden: { scale: 0.9, opacity: 0 },
+  visible: {
+    scale: 1,
+    opacity: 1,
+    transition: { duration: 0.7, ease: "easeOut" },
+  },
+};
+
+const cardItemVariants: Variants = {
+  hidden: { y: 16, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: { duration: 0.5, ease: [0.6, -0.05, 0.01, 0.99] },
+  },
+};
 
 export function ProjectsSection() {
   const ref = useRef<HTMLDivElement>(null);
@@ -77,12 +110,16 @@ export function ProjectsSection() {
           {filtered.map((project) => (
             <motion.article
               key={project.id}
-              variants={scaleIn}
+              variants={cardContainerVariants}
               whileHover={{ y: -4 }}
-              className="group flex flex-col bg-card border border-border rounded-xl overflow-hidden hover:shadow-2xl hover:shadow-primary/10 hover:border-primary/30 transition-all duration-300"
+              className="group flex flex-col bg-card border border-border rounded-xl overflow-hidden hover:shadow-2xl hover:shadow-primary/10 hover:border-primary/30 transition-shadow transition-[border-color] duration-300 relative"
             >
+              {/* Background glow (mirrors FeatureHighlightCard) */}
+              <div className="absolute left-1/2 top-0 -z-0 h-1/2 w-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/8 blur-3xl pointer-events-none" />
+
               {/* Cover image */}
-              <div
+              <motion.div
+                variants={cardImageVariants}
                 className="relative h-36 overflow-hidden shrink-0"
                 style={{ background: "linear-gradient(135deg, color-mix(in srgb, var(--gradient-start) 25%, transparent), color-mix(in srgb, var(--gradient-end) 15%, transparent))" }}
               >
@@ -109,28 +146,35 @@ export function ProjectsSection() {
                     {project.category}
                   </Badge>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Content */}
               <div className="flex flex-col flex-1 p-4">
-                <h3 className="text-sm font-bold text-foreground mb-1.5 group-hover:text-primary transition-colors leading-snug">
+                <motion.h3
+                  variants={cardItemVariants}
+                  className="text-sm font-bold text-foreground mb-1.5 group-hover:text-primary transition-colors leading-snug"
+                >
                   {project.title}
-                </h3>
-                <p className="text-muted-foreground text-xs leading-relaxed mb-3 line-clamp-2">
+                </motion.h3>
+
+                <motion.p
+                  variants={cardItemVariants}
+                  className="text-muted-foreground text-xs leading-relaxed mb-3 line-clamp-2"
+                >
                   {project.description}
-                </p>
+                </motion.p>
 
                 {/* Tech badges */}
-                <div className="flex flex-wrap gap-1 mb-3">
+                <motion.div variants={cardItemVariants} className="flex flex-wrap gap-1 mb-3">
                   {project.technologies.map((tech) => (
                     <Badge key={tech} variant="outline" className="text-[10px] px-1.5 py-0">
                       {tech}
                     </Badge>
                   ))}
-                </div>
+                </motion.div>
 
-                {/* Links — pushed to bottom, always same row */}
-                <div className="flex gap-2 mt-auto">
+                {/* Links */}
+                <motion.div variants={cardItemVariants} className="flex gap-2 mt-auto">
                   {project.liveUrl ? (
                     <Button variant="gradient" size="sm" asChild className="flex-1 h-8 text-xs">
                       <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
@@ -149,7 +193,7 @@ export function ProjectsSection() {
                       </a>
                     </Button>
                   )}
-                </div>
+                </motion.div>
               </div>
             </motion.article>
           ))}

@@ -8,6 +8,7 @@ import { BackToTop } from "@/components/layout/BackToTop";
 import { AnimatedCursor } from "@/components/layout/AnimatedCursor";
 import { CommandPalette } from "@/components/layout/CommandPalette";
 import { Footer } from "@/components/layout/Footer";
+import { SectionTransitions } from "@/components/layout/SectionTransitions";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { StatsSection } from "@/components/sections/StatsSection";
 import { AboutSection } from "@/components/sections/AboutSection";
@@ -35,6 +36,8 @@ export function ClientRoot() {
         <ScrollProgress />
         <CommandPalette />
         <Navbar />
+
+        <SectionTransitions />
 
         <main>
           <HeroSection />

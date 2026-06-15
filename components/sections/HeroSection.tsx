@@ -6,6 +6,8 @@ import Image from "next/image";
 import { Download, ArrowRight, Code2, BookOpen, Mail } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/icons/SocialIcons";
 import { Button } from "@/components/ui/button";
+import { EtherealShadow } from "@/components/ui/etheral-shadow";
+import { CursorWanderCard } from "@/components/ui/cursor-wander-card";
 import { profile } from "@/content/profile";
 import { socials } from "@/content/socials";
 import { fadeInUp, fadeInRight, staggerContainer } from "@/animations/variants";
@@ -60,10 +62,13 @@ export function HeroSection() {
     >
       {/* Background decorations — theme-aware */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute top-1/4 -left-48 w-96 h-96 rounded-full blur-3xl opacity-20"
-          style={{ background: "var(--gradient-start)" }} />
-        <div className="absolute bottom-1/4 -right-48 w-96 h-96 rounded-full blur-3xl opacity-15"
-          style={{ background: "var(--gradient-end)" }} />
+        <EtherealShadow
+          className="absolute inset-0 opacity-40 dark:opacity-60"
+          color="var(--gradient-start)"
+          animation={{ scale: 60, speed: 60 }}
+          noise={{ opacity: 0.8, scale: 1.2 }}
+          sizing="fill"
+        />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-3xl" />
       </div>
 
@@ -144,7 +149,13 @@ export function HeroSection() {
             animate="visible"
             className="relative flex justify-center pt-20 lg:pt-0"
           >
-            <div className="relative">
+            <CursorWanderCard
+              perspective={1200}
+              maxTiltDeg={18}
+              autoWander
+              containerClassName="relative"
+              className="relative"
+            >
               {/* Rotating rings — theme-aware border color */}
               <motion.div
                 animate={{ rotate: 360 }}
@@ -180,7 +191,7 @@ export function HeroSection() {
                   />
                 </div>
               </div>
-            </div>
+            </CursorWanderCard>
           </motion.div>
         </div>
       </div>
