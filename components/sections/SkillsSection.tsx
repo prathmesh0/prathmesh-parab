@@ -41,7 +41,7 @@ import { SectionLabel } from "@/components/motion/SectionLabel";
 import { SplitLines } from "@/components/motion/SplitLines";
 import { Reveal } from "@/components/motion/Reveal";
 import { EASE_OUT, SPRING_UI } from "@/lib/motion";
-import { cn } from "@/lib/utils";
+import { pillClass } from "@/lib/utils";
 
 const CATEGORY_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   Monitor,
@@ -114,14 +114,6 @@ export function SkillsSection() {
       .filter((c) => c.skills.length > 0);
   }, [activeCategory, query]);
 
-  const pill = (active: boolean) =>
-    cn(
-      "inline-flex h-9 items-center rounded-full border px-4 font-mono text-xs transition-colors duration-[140ms]",
-      active
-        ? "border-foreground bg-foreground text-background"
-        : "border-border text-muted-foreground hover:border-brand hover:text-foreground",
-    );
-
   return (
     <section id="skills" className="section-padding border-t border-border">
       <div className="container-grid">
@@ -130,7 +122,7 @@ export function SkillsSection() {
 
         <Reveal className="mt-12 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
           <div role="group" aria-label="Filter skills by category" className="flex flex-wrap gap-2">
-            <button type="button" aria-pressed={activeCategory === "all"} onClick={() => setActiveCategory("all")} className={pill(activeCategory === "all")}>
+            <button type="button" aria-pressed={activeCategory === "all"} onClick={() => setActiveCategory("all")} className={pillClass(activeCategory === "all")}>
               All
             </button>
             {skillCategories.map((c) => (
@@ -139,7 +131,7 @@ export function SkillsSection() {
                 type="button"
                 aria-pressed={activeCategory === c.id}
                 onClick={() => setActiveCategory(c.id)}
-                className={pill(activeCategory === c.id)}
+                className={pillClass(activeCategory === c.id)}
               >
                 {c.name}
               </button>

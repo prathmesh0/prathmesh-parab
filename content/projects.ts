@@ -10,6 +10,7 @@ export const projects: Project[] = [
     technologies: ['Next.js', 'TypeScript', 'Express.js', 'MongoDB', 'AI'],
     liveUrl: 'https://repolens-frontend.vercel.app/login',
     featured: true,
+    flagship: true,
     category: 'AI / Web',
   },
   {
@@ -34,6 +35,7 @@ export const projects: Project[] = [
     technologies: ['Node.js', 'Express.js', 'TypeScript', 'MongoDB', 'Socket.IO', 'Groq AI', 'Cloudinary'],
     githubUrl: 'https://github.com/prathmesh0/SmartVault',
     featured: true,
+    flagship: true,
     category: 'Backend / AI',
   },
   {
@@ -45,6 +47,7 @@ export const projects: Project[] = [
     technologies: ['Node.js', 'Express.js', 'TypeScript', 'MongoDB', 'JWT', 'Zod'],
     githubUrl: 'https://github.com/prathmesh0/rbac-be',
     featured: true,
+    flagship: true,
     category: 'Backend',
   },
   {

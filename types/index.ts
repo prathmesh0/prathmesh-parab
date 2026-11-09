@@ -54,6 +54,8 @@ export interface Project {
   liveUrl?: string;
   githubUrl?: string;
   featured: boolean;
+  /** Gets a pinned case-study block at the top of Projects (needs an entry in content/case-studies.ts). */
+  flagship?: boolean;
   inProgress?: boolean;
   category: string;
 }
