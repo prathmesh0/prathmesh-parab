@@ -1,23 +1,49 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
-import { motion, useInView, AnimatePresence } from "motion/react";
+import { useMemo, useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
 import {
-  Monitor,
-  Server,
-  Database,
-  Smartphone,
-  Code2,
   Brain,
-  Wrench,
+  Code2,
+  Database,
+  Monitor,
   Search,
   SearchX,
+  Server,
+  Smartphone,
+  Wrench,
 } from "lucide-react";
+import {
+  siC,
+  siCplusplus,
+  siCss,
+  siDart,
+  siExpress,
+  siFirebase,
+  siFlutter,
+  siGit,
+  siGithub,
+  siHtml5,
+  siJavascript,
+  siMongodb,
+  siMui,
+  siNextdotjs,
+  siNodedotjs,
+  siPostman,
+  siReact,
+  siShadcnui,
+  siTailwindcss,
+  siTypescript,
+  type SimpleIcon,
+} from "simple-icons";
 import { skillCategories } from "@/content/skills";
-import { staggerContainer, fadeInUp, scaleIn } from "@/animations/variants";
+import { SectionLabel } from "@/components/motion/SectionLabel";
+import { SplitLines } from "@/components/motion/SplitLines";
+import { Reveal } from "@/components/motion/Reveal";
+import { EASE_OUT, SPRING_UI } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
-const ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
+const CATEGORY_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   Monitor,
   Server,
   Database,
@@ -27,228 +53,163 @@ const ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   Wrench,
 };
 
-function SkeletonCard() {
+const BRAND: Record<string, SimpleIcon> = {
+  JavaScript: siJavascript,
+  TypeScript: siTypescript,
+  Dart: siDart,
+  "C++": siCplusplus,
+  C: siC,
+  "React.js": siReact,
+  "Next.js": siNextdotjs,
+  HTML: siHtml5,
+  CSS: siCss,
+  "Tailwind CSS": siTailwindcss,
+  "Shadcn UI": siShadcnui,
+  MUI: siMui,
+  Flutter: siFlutter,
+  "Node.js": siNodedotjs,
+  "Express.js": siExpress,
+  MongoDB: siMongodb,
+  Firebase: siFirebase,
+  Git: siGit,
+  GitHub: siGithub,
+  Postman: siPostman,
+};
+
+function SkillIcon({ name, Fallback }: { name: string; Fallback: React.ComponentType<{ className?: string }> }) {
+  const icon = BRAND[name];
+  if (!icon) return <Fallback className="size-3.5 shrink-0" />;
   return (
-    <div className="bg-card border border-border rounded-2xl p-4 animate-pulse">
-      <div className="flex items-center gap-2.5 mb-4">
-        <div className="w-8 h-8 rounded-lg bg-muted" />
-        <div className="h-3.5 w-28 bg-muted rounded-full" />
-      </div>
-      <div className="space-y-3">
-        {[1, 2, 3].map((i) => (
-          <div key={i}>
-            <div className="flex justify-between mb-1.5">
-              <div className="h-2.5 w-20 bg-muted rounded-full" />
-              <div className="h-2.5 w-7 bg-muted rounded-full" />
-            </div>
-            <div className="h-1.5 bg-muted rounded-full" />
-          </div>
-        ))}
-      </div>
-    </div>
+    <svg viewBox="0 0 24 24" aria-hidden className="size-3.5 shrink-0 fill-current">
+      <path d={icon.path} />
+    </svg>
+  );
+}
+
+function Highlight({ text, query }: { text: string; query: string }) {
+  if (!query) return <>{text}</>;
+  const i = text.toLowerCase().indexOf(query.toLowerCase());
+  if (i === -1) return <>{text}</>;
+  return (
+    <>
+      {text.slice(0, i)}
+      <mark className="rounded-[2px] bg-transparent text-brand underline decoration-brand underline-offset-4">
+        {text.slice(i, i + query.length)}
+      </mark>
+      {text.slice(i + query.length)}
+    </>
   );
 }
 
 export function SkillsSection() {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-  const [activeCategory, setActiveCategory] = useState<string>("all");
+  const [activeCategory, setActiveCategory] = useState("all");
   const [search, setSearch] = useState("");
-  const [isFiltering, setIsFiltering] = useState(false);
+  const query = search.trim();
 
-  const filtered =
-    activeCategory === "all"
-      ? skillCategories
-      : skillCategories.filter((c) => c.id === activeCategory);
+  const groups = useMemo(() => {
+    const q = query.toLowerCase();
+    return skillCategories
+      .filter((c) => activeCategory === "all" || c.id === activeCategory)
+      .map((c) => ({ ...c, skills: q ? c.skills.filter((s) => s.name.toLowerCase().includes(q)) : c.skills }))
+      .filter((c) => c.skills.length > 0);
+  }, [activeCategory, query]);
 
-  const searchFiltered = search
-    ? filtered
-        .map((cat) => ({
-          ...cat,
-          skills: cat.skills.filter((s) =>
-            s.name.toLowerCase().includes(search.toLowerCase())
-          ),
-        }))
-        .filter((c) => c.skills.length > 0)
-    : filtered;
-
-  const handleFilter = (id: string) => {
-    setIsFiltering(true);
-    setActiveCategory(id);
-    setTimeout(() => setIsFiltering(false), 350);
-  };
-
-  const handleSearch = (value: string) => {
-    setIsFiltering(true);
-    setSearch(value);
-    setTimeout(() => setIsFiltering(false), 350);
-  };
+  const pill = (active: boolean) =>
+    cn(
+      "inline-flex h-9 items-center rounded-full border px-4 font-mono text-xs transition-colors duration-[140ms]",
+      active
+        ? "border-foreground bg-foreground text-background"
+        : "border-border text-muted-foreground hover:border-brand hover:text-foreground",
+    );
 
   return (
-    <section id="skills" className="section-padding">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          ref={ref}
-          variants={staggerContainer}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          className="text-center mb-12"
-        >
-          <motion.p variants={fadeInUp} className="text-primary font-semibold text-sm uppercase tracking-widest mb-2">
-            Technical Skills
-          </motion.p>
-          <motion.h2 variants={fadeInUp} className="text-4xl sm:text-5xl font-black">
-            My <span className="gradient-text">Skills</span>
-          </motion.h2>
-        </motion.div>
+    <section id="skills" className="section-padding border-t border-border">
+      <div className="container-grid">
+        <SectionLabel index="03">Skills</SectionLabel>
+        <SplitLines text="My Skills" em="Skills" className="text-heading mt-4" />
 
-        {/* Filters + Search */}
-        <motion.div
-          variants={fadeInUp}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          className="flex flex-col sm:flex-row gap-4 mb-8"
-        >
-          {/* Search */}
-          <div className="relative flex-1 max-w-sm">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <input
-              type="text"
-              placeholder="Search skills..."
-              value={search}
-              onChange={(e) => handleSearch(e.target.value)}
-              className="w-full pl-9 pr-4 py-2 rounded-lg border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
-            />
-          </div>
-
-          {/* Category filter */}
-          <div className="flex gap-2 flex-wrap">
-            <button
-              onClick={() => handleFilter("all")}
-              className={cn(
-                "px-3 py-1.5 rounded-full text-sm font-medium transition-all",
-                activeCategory === "all"
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-secondary text-secondary-foreground hover:bg-primary/10"
-              )}
-            >
+        <Reveal className="mt-12 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+          <div role="group" aria-label="Filter skills by category" className="flex flex-wrap gap-2">
+            <button type="button" aria-pressed={activeCategory === "all"} onClick={() => setActiveCategory("all")} className={pill(activeCategory === "all")}>
               All
             </button>
-            {skillCategories.map((cat) => {
-              const Icon = ICONS[cat.icon] ?? Code2;
+            {skillCategories.map((c) => (
+              <button
+                key={c.id}
+                type="button"
+                aria-pressed={activeCategory === c.id}
+                onClick={() => setActiveCategory(c.id)}
+                className={pill(activeCategory === c.id)}
+              >
+                {c.name}
+              </button>
+            ))}
+          </div>
+
+          <label className="relative block w-full md:w-64">
+            <span className="sr-only">Search skills</span>
+            <Search aria-hidden className="absolute left-0 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+            <input
+              type="search"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search skills"
+              className="h-11 w-full border-b border-border bg-transparent pl-7 text-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-brand"
+            />
+          </label>
+        </Reveal>
+
+        <div className="mt-10 border-t border-border" aria-live="polite">
+          <AnimatePresence mode="popLayout" initial={false}>
+            {groups.map((cat) => {
+              const CatIcon = CATEGORY_ICONS[cat.icon] ?? Code2;
               return (
-                <button
+                <motion.div
                   key={cat.id}
-                  onClick={() => handleFilter(cat.id)}
-                  className={cn(
-                    "flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-all",
-                    activeCategory === cat.id
-                      ? "bg-primary text-primary-foreground"
-                      : "bg-secondary text-secondary-foreground hover:bg-primary/10"
-                  )}
+                  layout
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.24, ease: EASE_OUT, layout: SPRING_UI }}
+                  className="grid gap-4 border-b border-border py-7 md:grid-cols-12 md:gap-6"
                 >
-                  <Icon className="h-3 w-3" />
-                  {cat.name}
-                </button>
+                  <h3 className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground md:col-span-3">
+                    <CatIcon className="size-4" />
+                    {cat.name}
+                    <span className="text-foreground">{String(cat.skills.length).padStart(2, "0")}</span>
+                  </h3>
+                  <ul className="flex flex-wrap gap-2 md:col-span-9">
+                    <AnimatePresence mode="popLayout" initial={false}>
+                      {cat.skills.map((s) => (
+                        <motion.li
+                          key={s.name}
+                          layout
+                          initial={{ opacity: 0, scale: 0.94 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0, scale: 0.94 }}
+                          transition={{ duration: 0.24, ease: EASE_OUT, layout: SPRING_UI }}
+                          className="inline-flex items-center gap-2 rounded-full border border-border px-3.5 py-2 text-sm transition-colors duration-[140ms] hover:border-brand"
+                        >
+                          <SkillIcon name={s.name} Fallback={CatIcon} />
+                          <span>
+                            <Highlight text={s.name} query={query} />
+                          </span>
+                        </motion.li>
+                      ))}
+                    </AnimatePresence>
+                  </ul>
+                </motion.div>
               );
             })}
-          </div>
-        </motion.div>
+          </AnimatePresence>
 
-        {/* Skill cards grid */}
-        <AnimatePresence mode="wait">
-          {isFiltering ? (
-            <motion.div
-              key="skeleton"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.15 }}
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
-            >
-              {Array.from({ length: 4 }).map((_, i) => (
-                <SkeletonCard key={i} />
-              ))}
-            </motion.div>
-          ) : searchFiltered.length === 0 ? (
-            <motion.div
-              key="empty"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 8 }}
-              transition={{ duration: 0.25 }}
-              className="flex flex-col items-center justify-center py-20 gap-4 text-center"
-            >
-              <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center">
-                <SearchX className="h-7 w-7 text-primary" />
-              </div>
-              <div>
-                <p className="font-semibold text-foreground mb-1">No skills found</p>
-                <p className="text-sm text-muted-foreground max-w-xs">
-                  {search
-                    ? `No results for "${search}". Try a different keyword.`
-                    : "No skills match the selected category."}
-                </p>
-              </div>
-              <button
-                onClick={() => { setSearch(""); setActiveCategory("all"); }}
-                className="text-xs font-medium text-primary hover:underline underline-offset-4 transition-all"
-              >
-                Clear filters
-              </button>
-            </motion.div>
-          ) : (
-            <motion.div
-              key="cards"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              variants={staggerContainer}
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
-            >
-              {searchFiltered.map((category) => {
-                const Icon = ICONS[category.icon] ?? Code2;
-                return (
-                  <motion.div
-                    key={category.id}
-                    variants={scaleIn}
-                    className="bg-card border border-border rounded-2xl p-4 hover:shadow-lg hover:shadow-primary/10 hover:border-primary/30 transition-all duration-300 group"
-                  >
-                    <div className="flex items-center gap-2.5 mb-4">
-                      <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors shrink-0">
-                        <Icon className="h-4 w-4 text-primary" />
-                      </div>
-                      <h3 className="font-semibold text-foreground text-sm">{category.name}</h3>
-                    </div>
-
-                    <div className="space-y-2.5">
-                      {category.skills.map((skill) => (
-                        <div key={skill.name}>
-                          <div className="flex items-center justify-between mb-1">
-                            <span className="text-xs text-muted-foreground">{skill.name}</span>
-                            <span className="text-xs font-medium text-primary">{skill.level}%</span>
-                          </div>
-                          <div className="h-1 bg-secondary rounded-full overflow-hidden">
-                            <motion.div
-                              initial={{ width: 0 }}
-                              animate={inView ? { width: `${skill.level}%` } : { width: 0 }}
-                              transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
-                              className="h-full rounded-full"
-                              style={{
-                                background: "linear-gradient(to right, var(--gradient-start), var(--gradient-end))",
-                              }}
-                            />
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </motion.div>
+          {groups.length === 0 && (
+            <div className="flex flex-col items-center gap-3 py-16 text-muted-foreground">
+              <SearchX className="size-6" />
+              <p>No skills match &ldquo;{query}&rdquo;.</p>
+            </div>
           )}
-        </AnimatePresence>
+        </div>
       </div>
     </section>
   );

@@ -136,7 +136,7 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body
-        className="min-h-screen antialiased overflow-x-hidden"
+        className="min-h-screen antialiased overflow-x-clip"
         suppressHydrationWarning
       >
         <a

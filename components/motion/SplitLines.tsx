@@ -11,13 +11,15 @@ interface SplitLinesProps {
   /** Animate on mount (hero) instead of on scroll. */
   immediate?: boolean;
   as?: "h1" | "h2" | "h3" | "p";
+  /** One emphasised word, set in Instrument Serif italic. */
+  em?: string;
 }
 
 /**
  * Mask reveal: each word slides up from behind a clip (translateY 100% → 0).
  * SSR-safe (text is in the HTML), no layout shift, opacity-only under reduced motion.
  */
-export function SplitLines({ text, className, delay = 0, immediate, as = "h2" }: SplitLinesProps) {
+export function SplitLines({ text, className, delay = 0, immediate, as = "h2", em }: SplitLinesProps) {
   const reduced = useReducedMotion();
   const Tag = motion[as] as typeof motion.h2;
   const words = text.split(" ");
@@ -36,7 +38,7 @@ export function SplitLines({ text, className, delay = 0, immediate, as = "h2" }:
       {words.map((w, i) => (
         <span key={i} aria-hidden className="inline-block overflow-hidden align-bottom pb-[0.14em] -mb-[0.14em]">
           <motion.span
-            className="inline-block"
+            className={w === em ? "serif-em inline-block" : "inline-block"}
             variants={{
               hidden: reduced ? { opacity: 0 } : { y: "100%" },
               visible: reduced ? { opacity: 1 } : { y: 0 },
