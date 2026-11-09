@@ -22,8 +22,8 @@ export function SlotText({ words, interval = 2800, className }: SlotTextProps) {
     return () => clearInterval(id);
   }, [words.length, interval]);
 
-  const enter = reduced ? { opacity: 0 } : { y: "100%", opacity: 0 };
-  const exit = reduced ? { opacity: 0 } : { y: "-100%", opacity: 0 };
+  const enter = reduced ? { opacity: 0 } : { y: "100%" };
+  const exit = reduced ? { opacity: 0 } : { y: "-100%" };
 
   return (
     <span className={className}>

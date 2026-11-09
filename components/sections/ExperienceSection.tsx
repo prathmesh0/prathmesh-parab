@@ -21,7 +21,7 @@ export function ExperienceSection() {
                 href={exp.companyUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group mt-2 inline-flex min-h-11 items-center gap-1 text-lg text-muted-foreground transition-colors hover:text-brand"
+                className="group mt-2 inline-flex min-h-11 items-center gap-1 text-lg text-muted-foreground transition-colors hover:text-accent-ink"
               >
                 {exp.company}
                 <ArrowUpRight className="size-4 transition-transform duration-[240ms] group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
@@ -56,7 +56,7 @@ export function ExperienceSection() {
                       <span
                         className={
                           m
-                            ? "font-mono text-4xl font-medium tracking-tight text-brand md:text-5xl"
+                            ? "font-mono text-4xl font-medium tracking-tight text-accent-ink md:text-5xl"
                             : "font-mono text-sm text-muted-foreground sm:pt-2"
                         }
                       >

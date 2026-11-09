@@ -4,13 +4,13 @@ import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { Palette, Check } from "lucide-react";
 import { useTheme } from "@/components/providers/ThemeProvider";
 import { COLOR_THEMES, type ColorTheme } from "@/lib/theme-config";
-import { menuContentClass, menuItemClass, menuTriggerClass } from "@/components/ui/ThemeModeDropdown";
+import { menuContentClass, menuItemClass, menuTriggerClass } from "@/components/ui/menuStyles";
 
-export function ColorThemeDropdown() {
+export function ColorThemeDropdown({ defaultOpen }: { defaultOpen?: boolean }) {
   const { color, setColor } = useTheme();
 
   return (
-    <DropdownMenu.Root>
+    <DropdownMenu.Root defaultOpen={defaultOpen}>
       <DropdownMenu.Trigger className={`${menuTriggerClass} relative`} aria-label="Accent colour">
         <Palette className="size-4" />
         <span aria-hidden className="absolute bottom-1.5 right-1.5 size-1.5 rounded-full bg-brand" />
@@ -26,7 +26,7 @@ export function ColorThemeDropdown() {
                 <span aria-hidden className="size-3.5 rounded-full" style={{ background: t.swatch }} />
                 {t.label}
                 <DropdownMenu.ItemIndicator className="ml-auto">
-                  <Check className="size-3.5 text-brand" />
+                  <Check className="size-3.5 text-accent-ink" />
                 </DropdownMenu.ItemIndicator>
               </DropdownMenu.RadioItem>
             ))}

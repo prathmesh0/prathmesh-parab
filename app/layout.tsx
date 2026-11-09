@@ -47,6 +47,7 @@ export const metadata: Metadata = {
     'Mobile Developer',
     'Portfolio',
   ],
+  alternates: { canonical: '/' },
   authors: [{ name: 'Prathmesh Parab', url: 'https://prathmesh-parab-portfolio.vercel.app' }],
   creator: 'Prathmesh Parab',
   icons: {

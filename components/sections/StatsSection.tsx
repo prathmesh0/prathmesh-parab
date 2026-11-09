@@ -7,17 +7,19 @@ export function StatsSection() {
   return (
     <section aria-label="Impact" className="border-y border-border">
       <div className="container-grid">
-        <dl className="grid divide-y divide-border sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+        <ul className="grid divide-y divide-border sm:grid-cols-3 sm:divide-x sm:divide-y-0">
           {impactMetrics.map((m, i) => (
-            <Reveal key={m.label} delay={i * 0.05} className="py-8 sm:px-8 sm:first:pl-0 sm:last:pr-0">
-              <dd className="text-5xl font-medium tracking-tight md:text-6xl">
-                <CountUp value={m.value} suffix={m.suffix} />
-              </dd>
-              <dt className="mt-3 text-sm text-foreground">{m.label}</dt>
-              <p className="mt-1 font-mono text-xs text-muted-foreground">{m.source}</p>
-            </Reveal>
+            <li key={m.label} className="sm:first:[&>div]:pl-0 sm:last:[&>div]:pr-0">
+              <Reveal delay={i * 0.05} className="py-8 sm:px-8">
+                <p className="text-5xl font-medium tracking-tight md:text-6xl">
+                  <CountUp value={m.value} suffix={m.suffix} />
+                </p>
+                <p className="mt-3 text-sm text-foreground">{m.label}</p>
+                <p className="mt-1 font-mono text-xs text-muted-foreground">{m.source}</p>
+              </Reveal>
+            </li>
           ))}
-        </dl>
+        </ul>
 
         <ul className="flex flex-wrap gap-x-8 gap-y-2 border-t border-border py-4 font-mono text-xs text-muted-foreground">
           {stats.map((s) => (

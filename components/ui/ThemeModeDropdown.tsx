@@ -5,6 +5,7 @@ import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { Sun, Moon, Monitor, Check } from "lucide-react";
 import { useTheme } from "@/components/providers/ThemeProvider";
 import type { DarkMode } from "@/lib/theme-config";
+import { menuContentClass, menuItemClass, menuTriggerClass } from "@/components/ui/menuStyles";
 
 const MODE_OPTIONS: { id: DarkMode; icon: React.ComponentType<{ className?: string }>; label: string }[] = [
   { id: "light", icon: Sun, label: "Light" },
@@ -12,20 +13,13 @@ const MODE_OPTIONS: { id: DarkMode; icon: React.ComponentType<{ className?: stri
   { id: "system", icon: Monitor, label: "System" },
 ];
 
-export const menuTriggerClass =
-  "grid size-9 place-items-center rounded-full text-muted-foreground transition-colors duration-[140ms] hover:bg-accent hover:text-foreground data-[state=open]:bg-accent data-[state=open]:text-foreground";
-export const menuContentClass =
-  "menu-content z-[80] min-w-44 rounded-2xl border border-border bg-popover p-1.5 shadow-[0_12px_32px_-12px_rgb(0_0_0/0.35)]";
-export const menuItemClass =
-  "flex cursor-pointer select-none items-center gap-2.5 rounded-xl px-3 py-2 text-sm text-foreground outline-none data-[highlighted]:bg-accent";
-
-export function ThemeModeDropdown() {
+export function ThemeModeDropdown({ defaultOpen }: { defaultOpen?: boolean }) {
   const { mode, setMode } = useTheme();
   const trigger = useRef<HTMLButtonElement>(null);
   const Current = MODE_OPTIONS.find((o) => o.id === mode)?.icon ?? Moon;
 
   return (
-    <DropdownMenu.Root>
+    <DropdownMenu.Root defaultOpen={defaultOpen}>
       <DropdownMenu.Trigger ref={trigger} className={menuTriggerClass} aria-label="Theme mode">
         <Current className="size-4" />
       </DropdownMenu.Trigger>
@@ -43,7 +37,7 @@ export function ThemeModeDropdown() {
                 <Icon className="size-4 text-muted-foreground" />
                 {label}
                 <DropdownMenu.ItemIndicator className="ml-auto">
-                  <Check className="size-3.5 text-brand" />
+                  <Check className="size-3.5 text-accent-ink" />
                 </DropdownMenu.ItemIndicator>
               </DropdownMenu.RadioItem>
             ))}

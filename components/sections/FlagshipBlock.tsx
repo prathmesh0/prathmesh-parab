@@ -98,7 +98,7 @@ export function FlagshipBlock({ project, study, index, total }: Props) {
         <div className="grid-12 items-center gap-y-10">
           <Reveal className="col-span-12 lg:col-span-5">
             <p className="font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
-              <span className="text-brand">{String(index + 1).padStart(2, "0")}</span>/{String(total).padStart(2, "0")} —
+              <span className="text-accent-ink">{String(index + 1).padStart(2, "0")}</span>/{String(total).padStart(2, "0")} —
               Flagship · {project.category}
             </p>
             <h3 className="text-heading mt-4">{project.title}</h3>
@@ -122,7 +122,7 @@ export function FlagshipBlock({ project, study, index, total }: Props) {
                 <ol className="flex justify-between font-mono text-xs uppercase tracking-[0.14em]">
                   {STEPS.map((s, i) => (
                     <li key={s} data-tick className={i === 0 ? "" : "opacity-40"}>
-                      <span className="text-brand">{String(i + 1).padStart(2, "0")}</span> {s}
+                      <span className="text-accent-ink">{String(i + 1).padStart(2, "0")}</span> {s}
                     </li>
                   ))}
                 </ol>
@@ -146,7 +146,7 @@ export function FlagshipBlock({ project, study, index, total }: Props) {
                 {STEPS.map((s, i) => (
                   <Reveal key={s}>
                     <dt className="font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
-                      <span className="text-brand">{String(i + 1).padStart(2, "0")}</span> {s}
+                      <span className="text-accent-ink">{String(i + 1).padStart(2, "0")}</span> {s}
                     </dt>
                     <dd className="mt-2">
                       <StepBody step={s} study={study} project={project} />

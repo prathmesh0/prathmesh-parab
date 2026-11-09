@@ -25,6 +25,7 @@ export function RevealLines({ children, className }: { children: ReactNode; clas
           type: "lines",
           mask: "lines",
           autoSplit: true,
+          aria: "none",
           onSplit: (self) =>
             gsap.from(self.lines, {
               yPercent: 110,

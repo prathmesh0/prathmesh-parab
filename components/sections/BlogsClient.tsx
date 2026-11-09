@@ -47,9 +47,9 @@ function FeaturedPost({ post }: { post: BlogPost }) {
         </div>
         <div className="col-span-12 lg:col-span-5">
           <p className="font-mono text-xs text-muted-foreground">
-            <span className="text-brand">Featured</span> · {formatDate(post.publishedAt)} · {post.readTime}
+            <span className="text-accent-ink">Featured</span> · {formatDate(post.publishedAt)} · {post.readTime}
           </p>
-          <h3 className="mt-4 text-3xl font-medium leading-tight tracking-tight transition-colors group-hover:text-brand md:text-4xl">
+          <h3 className="mt-4 text-3xl font-medium leading-tight tracking-tight transition-colors group-hover:text-accent-ink md:text-4xl">
             {post.title}
           </h3>
           <p className="mt-4 line-clamp-4 text-muted-foreground">{post.summary}</p>
@@ -82,7 +82,7 @@ function PostRow({ post }: { post: BlogPost }) {
           {formatDate(post.publishedAt)} · {post.readTime}
         </p>
         <div className="md:col-span-7">
-          <h4 className="text-xl font-medium tracking-tight transition-colors group-hover:text-brand">{post.title}</h4>
+          <h4 className="text-xl font-medium tracking-tight transition-colors group-hover:text-accent-ink">{post.title}</h4>
           <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">{post.summary}</p>
           {post.tags.length > 0 && (
             <p className="mt-2 font-mono text-xs text-muted-foreground">{post.tags.slice(0, 3).join(" · ")}</p>
@@ -184,7 +184,7 @@ export function BlogsClient({ initialPosts, initialFailed }: Props) {
               href={MEDIUM_PROFILE_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex min-h-11 items-center gap-1.5 font-mono text-sm text-foreground hover:text-brand"
+              className="inline-flex min-h-11 items-center gap-1.5 font-mono text-sm text-foreground hover:text-accent-ink"
             >
               Visit Medium directly <ArrowUpRight className="size-4" />
             </a>
@@ -228,7 +228,7 @@ export function BlogsClient({ initialPosts, initialFailed }: Props) {
                 href={MEDIUM_PROFILE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex min-h-11 items-center gap-1.5 font-mono text-sm hover:text-brand"
+                className="group inline-flex min-h-11 items-center gap-1.5 font-mono text-sm hover:text-accent-ink"
               >
                 All writing
                 <ArrowUpRight className="size-4 transition-transform duration-[240ms] group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />

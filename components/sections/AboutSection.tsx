@@ -61,7 +61,7 @@ export function AboutSection() {
                   className="list-none border-b border-border py-6 sm:odd:border-r sm:odd:pr-6 sm:even:pl-6"
                 >
                   <Reveal delay={i * 0.05}>
-                    <span className="font-mono text-xs text-brand">{String(i + 1).padStart(2, "0")}</span>
+                    <span className="font-mono text-xs text-accent-ink">{String(i + 1).padStart(2, "0")}</span>
                     <h3 className="mt-2 font-medium">{p.title}</h3>
                     <p className="mt-1 text-sm text-muted-foreground">{p.description}</p>
                   </Reveal>

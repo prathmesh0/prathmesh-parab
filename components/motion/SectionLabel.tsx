@@ -12,7 +12,7 @@ export function SectionLabel({
 }) {
   return (
     <p className={cn("font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground", className)}>
-      <span className="text-brand">{index}</span> — {children}
+      <span className="text-accent-ink">{index}</span> — {children}
     </p>
   );
 }

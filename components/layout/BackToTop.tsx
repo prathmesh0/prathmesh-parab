@@ -22,7 +22,7 @@ export function BackToTop() {
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.85 }}
           transition={{ duration: 0.24, ease: [0.16, 1, 0.3, 1] }}
-          className="fixed bottom-6 right-6 z-40 grid size-12 place-items-center rounded-full border border-border bg-background/90 text-foreground backdrop-blur-md transition-colors hover:text-brand"
+          className="fixed bottom-6 right-6 z-40 grid size-12 place-items-center rounded-full border border-border bg-background/90 text-foreground backdrop-blur-md transition-colors hover:text-accent-ink"
         >
           <svg viewBox="0 0 48 48" aria-hidden className="absolute inset-0 size-full -rotate-90">
             <motion.circle

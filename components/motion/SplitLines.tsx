@@ -30,13 +30,12 @@ export function SplitLines({ text, className, delay = 0, immediate, as = "h2", e
   return (
     <Tag
       className={className}
-      aria-label={text}
       initial="hidden"
       {...trigger}
       transition={{ staggerChildren: STAGGER, delayChildren: delay }}
     >
       {words.map((w, i) => (
-        <span key={i} aria-hidden className="inline-block overflow-hidden align-bottom pb-[0.14em] -mb-[0.14em]">
+        <span key={i} className="inline-block overflow-hidden align-bottom pb-[0.14em] -mb-[0.14em]">
           <motion.span
             className={w === em ? "serif-em inline-block" : "inline-block"}
             variants={{

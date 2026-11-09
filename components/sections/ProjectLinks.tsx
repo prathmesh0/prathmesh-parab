@@ -4,7 +4,7 @@ import type { Project } from "@/types";
 import { cn } from "@/lib/utils";
 
 const linkClass =
-  "group inline-flex min-h-11 items-center gap-1.5 font-mono text-sm text-foreground transition-colors hover:text-brand";
+  "group inline-flex min-h-11 items-center gap-1.5 font-mono text-sm text-foreground transition-colors hover:text-accent-ink";
 
 /** Live Demo / View Code links, or the In Progress state. */
 export function ProjectLinks({ project, className }: { project: Project; className?: string }) {

@@ -16,6 +16,8 @@
   --ring: 239 84% 67%;
   --primary-foreground: 0 0% 100%;
   --accent: hsl(var(--primary));
+  /* Accent as TEXT / focus ring: darkened in light mode, lightened in dark mode (>= 4.5:1 for all 6 accents) */
+  --accent-ink: color-mix(in srgb, var(--accent) 62%, black);
 
   /* Legacy gradient vars (Logo etc.) — resolve to the single accent */
   --gradient-start: #6366f1;
@@ -47,6 +49,7 @@
   --fg: #ededed;
   --muted: #8a8a8f;
   --primary-foreground: 0 0% 7%;
+  --accent-ink: color-mix(in srgb, var(--accent) 88%, white);
   --destructive: 0 70% 55%;
 }
 
@@ -62,6 +65,7 @@
   --color-primary: hsl(var(--primary));
   --color-primary-foreground: hsl(var(--primary-foreground));
   --color-brand: var(--accent);
+  --color-accent-ink: var(--accent-ink);
   --color-secondary: color-mix(in srgb, var(--fg) 6%, var(--bg));
   --color-secondary-foreground: var(--fg);
   --color-muted: color-mix(in srgb, var(--fg) 6%, var(--bg));
@@ -101,7 +105,7 @@ body {
 }
 
 :focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--accent-ink);
   outline-offset: 3px;
 }
 
@@ -170,7 +174,8 @@ body {
   pointer-events: none;
   opacity: 0.12;
   mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  background-image: url("/images/grain.png");
+  background-size: 96px 96px;
 }
 
 /* Theme switch: circular reveal (clip-path animated from JS) */
@@ -182,6 +187,14 @@ body {
 ::view-transition-old(root) { z-index: 1; }
 ::view-transition-new(root) { z-index: 2; }
 
+/* Hero intro: pure CSS so it never waits on hydration (protects LCP) */
+@keyframes intro-up { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+@keyframes word-up { from { transform: translateY(100%); } to { transform: none; } }
+@keyframes clip-in { from { clip-path: inset(100% 0 0 0); } to { clip-path: inset(0 0 0 0); } }
+.intro-up { animation: intro-up 0.7s var(--ease-out) both; animation-delay: var(--d, 0s); }
+.word-up { display: inline-block; animation: word-up 0.8s var(--ease-out) both; animation-delay: var(--d, 0s); }
+.clip-in { animation: clip-in 0.9s var(--ease-out) 0.1s both; }
+
 /* ─── Reduced motion: fades only, no smooth scroll ──────────── */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -189,6 +202,7 @@ body {
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+    animation-delay: 0s !important;
     scroll-behavior: auto !important;
   }
 }

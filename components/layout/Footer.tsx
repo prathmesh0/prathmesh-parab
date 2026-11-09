@@ -22,7 +22,7 @@ export function Footer() {
           <p>Built with Next.js · TypeScript</p>
           <ScrollLink
             href="#home"
-            className="group inline-flex min-h-11 items-center gap-1.5 text-foreground transition-colors hover:text-brand"
+            className="group inline-flex min-h-11 items-center gap-1.5 text-foreground transition-colors hover:text-accent-ink"
           >
             Back to top
             <ArrowUp className="size-3.5 transition-transform duration-[240ms] group-hover:-translate-y-0.5" />
