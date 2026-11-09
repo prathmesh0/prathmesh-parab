@@ -1,19 +1,17 @@
 "use client";
 
-import { useScrollProgress } from "@/hooks/useScrollProgress";
+import { motion, useScroll, useSpring } from "motion/react";
 
+/** 1px accent progress line at the top of the viewport. Driven by motion values (no React re-renders). */
 export function ScrollProgress() {
-  const progress = useScrollProgress();
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, { stiffness: 400, damping: 40, restDelta: 0.001 });
 
   return (
-    <div className="fixed top-0 left-0 right-0 h-[3px] z-[60] bg-transparent">
-      <div
-        className="h-full transition-all duration-75"
-        style={{
-          width: `${progress}%`,
-          background: "linear-gradient(to right, var(--gradient-start), var(--gradient-end))",
-        }}
-      />
-    </div>
+    <motion.div
+      aria-hidden
+      className="fixed inset-x-0 top-0 z-[60] h-px origin-left bg-brand"
+      style={{ scaleX }}
+    />
   );
 }

@@ -1,12 +1,13 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X, Sun, Moon, Monitor, Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useActiveSection } from '@/hooks/useActiveSection';
 import { useTheme } from '@/components/providers/ThemeProvider';
 import { COLOR_THEMES, type DarkMode } from '@/lib/theme-config';
+import { scrollToId } from '@/lib/scroll';
 import { cn } from '@/lib/utils';
 import { profile } from '@/content/profile';
 import { ThemeModeDropdown } from '@/components/ui/ThemeModeDropdown';
@@ -59,7 +60,7 @@ export function Navbar() {
   const handleNavClick = (href: string) => {
     setMobileOpen(false);
     const id = href.replace('#', '');
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    scrollToId(id);
   };
 
   return (

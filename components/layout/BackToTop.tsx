@@ -1,9 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "motion/react";
 import { ArrowUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { scrollToTop } from "@/lib/scroll";
 
 export function BackToTop() {
   const [visible, setVisible] = useState(false);
@@ -27,7 +28,7 @@ export function BackToTop() {
             variant="gradient"
             size="icon"
             className="h-11 w-11 rounded-full shadow-lg"
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            onClick={() => scrollToTop()}
             aria-label="Back to top"
           >
             <ArrowUp className="h-5 w-5" />

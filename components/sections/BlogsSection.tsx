@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect, useCallback } from "react";
-import { motion, useInView, AnimatePresence } from "framer-motion";
+import { motion, useInView, AnimatePresence } from "motion/react";
 import Image from "next/image";
 import { ArrowRight, Calendar, Clock, Search, Star, AlertCircle, SearchX } from "lucide-react";
 import { Button } from "@/components/ui/button";

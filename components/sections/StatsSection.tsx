@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView } from 'motion/react';
 import { gsap } from 'gsap';
 import { stats } from '@/content/profile';
 import { staggerContainer, fadeInUp } from '@/animations/variants';

@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { scrollToId } from "@/lib/scroll";
+import { motion } from "motion/react";
 import Image from "next/image";
 import { Download, ArrowRight, Code2, BookOpen, Mail } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/icons/SocialIcons";
@@ -114,7 +115,7 @@ export function HeroSection() {
                 variant="outline"
                 size="lg"
                 onClick={() =>
-                  document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })
+                  scrollToId("projects")
                 }
               >
                 View Projects

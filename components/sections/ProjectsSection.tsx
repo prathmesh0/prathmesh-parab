@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { motion, useInView, Variants } from "framer-motion";
+import { motion, useInView, Variants } from "motion/react";
 import Image from "next/image";
 import { ExternalLink, Star } from "lucide-react";
 import { GithubIcon } from "@/components/icons/SocialIcons";

@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { Command } from "cmdk";
-import { motion, AnimatePresence } from "framer-motion";
+import { scrollToId } from "@/lib/scroll";
+import { motion, AnimatePresence } from "motion/react";
 import {
   Search,
   Home,
@@ -30,7 +31,7 @@ const COMMANDS = [
 ];
 
 function scrollTo(id: string) {
-  document.querySelector(id)?.scrollIntoView({ behavior: "smooth" });
+  scrollToId(id);
 }
 
 export function CommandPalette() {

@@ -53,7 +53,7 @@ function applyTheme(mode: DarkMode, color: ColorTheme) {
   root.style.setProperty("--primary", vars.primary);
   root.style.setProperty("--ring", vars.ring);
   root.style.setProperty("--gradient-start", vars.gradient[0]);
-  root.style.setProperty("--gradient-end", vars.gradient[1]);
+  root.style.setProperty("--gradient-end", vars.gradient[0]);
 
   // Persist
   try {
@@ -69,13 +69,15 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
   // Initialise from localStorage on mount
   useEffect(() => {
-    let savedMode = (localStorage.getItem("theme-mode") as DarkMode) ?? "dark";
-    let savedColor = (localStorage.getItem("theme-color") as ColorTheme) ?? "indigo";
+    const savedMode = (localStorage.getItem("theme-mode") as DarkMode) ?? "dark";
+    const savedColor = (localStorage.getItem("theme-color") as ColorTheme) ?? "indigo";
+    /* eslint-disable react-hooks/set-state-in-effect -- hydration-safe init from localStorage */
     setModeState(savedMode);
     setColorState(savedColor);
     const resolved = savedMode === "system" ? getSystemMode() : savedMode;
     setResolvedMode(resolved);
     applyTheme(savedMode, savedColor);
+    /* eslint-enable react-hooks/set-state-in-effect */
   }, []);
 
   // Respond to system preference changes
