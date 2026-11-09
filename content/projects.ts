@@ -13,6 +13,52 @@ export const projects: Project[] = [
     category: 'AI / Web',
   },
   {
+    id: 'visitlume',
+    title: 'VisitLume AI',
+    description:
+      'AI-powered website visitor intelligence for small businesses, turning anonymous visitors into customers with behaviour analytics, lead capture, and AI next-best-actions.',
+    longDescription:
+      'Multi-tenant SaaS monorepo: a JS tracker snippet collects visitor behaviour, BullMQ workers turn it into KPIs, leads, and AI next steps, and won/lost outcomes flow back to prove revenue attribution. Includes a Next.js dashboard, an Express event-ingest service, background workers, and a browser SDK.',
+    image: '/images/projects/visitlume.svg',
+    technologies: ['Next.js', 'TypeScript', 'Express.js', 'MongoDB', 'Redis', 'BullMQ', 'Turborepo', 'AI'],
+    featured: true,
+    inProgress: true,
+    category: 'AI / Web',
+  },
+  {
+    id: 'smartvault',
+    title: 'SmartVault',
+    description:
+      'File upload API with real-time processing status via Socket.IO and AI-generated summaries, categories, and tags for PDF/TXT documents.',
+    image: '/images/projects/smartvault.svg',
+    technologies: ['Node.js', 'Express.js', 'TypeScript', 'MongoDB', 'Socket.IO', 'Groq AI', 'Cloudinary'],
+    githubUrl: 'https://github.com/prathmesh0/SmartVault',
+    featured: true,
+    category: 'Backend / AI',
+  },
+  {
+    id: 'rbac-api',
+    title: 'RBAC API',
+    description:
+      'Production-grade, database-driven role-based access control API with runtime-managed roles, modules, actions, and permissions plus JWT refresh-token rotation.',
+    image: '/images/projects/rbac-api.svg',
+    technologies: ['Node.js', 'Express.js', 'TypeScript', 'MongoDB', 'JWT', 'Zod'],
+    githubUrl: 'https://github.com/prathmesh0/rbac-be',
+    featured: true,
+    category: 'Backend',
+  },
+  {
+    id: 'task-manager-api',
+    title: 'Task Manager API',
+    description:
+      'Task management backend with Clerk authentication, per-user task ownership, status and priority tracking, rate limiting, and Swagger API docs.',
+    image: '/images/projects/task-manager.svg',
+    technologies: ['Node.js', 'Express.js', 'TypeScript', 'MongoDB', 'Clerk', 'Swagger'],
+    githubUrl: 'https://github.com/prathmesh0/task-manager-be',
+    featured: false,
+    category: 'Backend',
+  },
+  {
     id: 'innerbalance',
     title: 'InnerBalance',
     description:
