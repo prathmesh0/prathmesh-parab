@@ -11,7 +11,7 @@ export function HeroPortrait({ src, alt }: { src: string; alt: string }) {
           fill
           preload
           fetchPriority="high"
-          sizes="(min-width: 1024px) 400px, (min-width: 640px) 50vw, 90vw"
+          sizes="(min-width: 1024px) 288px, 272px"
           className="object-cover object-[50%_20%]"
         />
       </div>

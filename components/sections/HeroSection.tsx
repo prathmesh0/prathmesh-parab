@@ -19,7 +19,7 @@ export function HeroSection() {
         <div className="grid-12 gap-y-12">
           <div className="col-span-12 lg:col-span-8">
             <div className="intro-up">
-              <p className="flex flex-wrap items-center gap-x-4 gap-y-1 font-mono text-xs text-muted-foreground">
+              <p className="flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-xs text-muted-foreground">
                 <span className="inline-flex items-center gap-2">
                   <span aria-hidden className="relative flex size-2">
                     <span className="absolute inline-flex size-full animate-ping rounded-full bg-brand opacity-60" />
@@ -27,17 +27,19 @@ export function HeroSection() {
                   </span>
                   Available for work
                 </span>
+                <span aria-hidden className="hidden h-3 w-px bg-border sm:block" />
                 <span>Mumbai · <LocalTime /></span>
+                <span aria-hidden className="hidden h-3 w-px bg-border sm:block" />
                 <span>Currently building VisitLume AI</span>
               </p>
             </div>
 
-            <SplitWords as="h1" delay={0.05} text={profile.name} className="text-display mt-8" />
+            <SplitWords as="h1" delay={0.05} text={profile.name} className="text-display-hero mt-8" />
 
             <div className="intro-up" style={{ "--d": "0.25s" } as CSSProperties}>
               <p className="prose-measure mt-8 text-xl leading-snug text-foreground md:text-2xl">
-                Frontend engineer building fast, accessible product UI for US enterprise teams —
-                Next.js, TypeScript, Flutter.
+                Full-stack software engineer building scalable web and mobile products for US enterprise teams —
+                Next.js, Flutter, Node.js, MongoDB and cloud-ready APIs.
               </p>
               <div className="mt-4 flex items-baseline gap-3 font-mono text-sm text-muted-foreground">
                 <span aria-hidden>→</span>
@@ -71,7 +73,7 @@ export function HeroSection() {
             </div>
           </div>
 
-          <div className="col-span-12 sm:col-span-6 lg:col-span-4 lg:self-end">
+          <div className="col-span-12 w-full max-w-[16rem] sm:max-w-[17rem] lg:col-span-4 lg:max-w-[18rem] lg:self-end lg:justify-self-end">
             <HeroPortrait src={profile.avatar} alt={`Portrait of ${profile.name}`} />
           </div>
         </div>
