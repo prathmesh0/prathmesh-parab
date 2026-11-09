@@ -25,7 +25,7 @@ const personJsonLd = {
   image: `${SITE_URL}${profile.avatar}`,
   jobTitle: profile.title,
   description:
-    "Full-stack software engineer building scalable web and mobile products for US enterprise teams — Next.js, Flutter, Node.js, MongoDB and cloud-ready APIs.",
+    "Full-stack engineer building web and mobile products for US enterprise teams.",
   address: { "@type": "PostalAddress", addressLocality: "Mumbai", addressCountry: "IN" },
   worksFor: { "@type": "Organization", name: experiences[0].company, url: experiences[0].companyUrl },
   knowsAbout: ["Next.js", "React", "TypeScript", "Flutter", "Node.js"],

@@ -37,9 +37,8 @@ export function HeroSection() {
             <SplitWords as="h1" delay={0.05} text={profile.name} className="text-display-hero mt-8" />
 
             <div className="intro-up" style={{ "--d": "0.25s" } as CSSProperties}>
-              <p className="prose-measure mt-8 text-xl leading-snug text-foreground md:text-2xl">
-                Full-stack software engineer building scalable web and mobile products for US enterprise teams —
-                Next.js, Flutter, Node.js, MongoDB and cloud-ready APIs.
+              <p className="prose-measure mt-8 text-lg leading-snug text-foreground">
+                Full-stack engineer building web and mobile products for US enterprise teams.
               </p>
               <div className="mt-4 flex items-baseline gap-3 font-mono text-sm text-muted-foreground">
                 <span aria-hidden>→</span>
