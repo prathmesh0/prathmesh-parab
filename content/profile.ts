@@ -19,6 +19,13 @@ export const profile: Profile = {
   resume: '/resume.pdf',
 };
 
+/** Verified metrics from the experience entry (shown in the impact strip). */
+export const impactMetrics = [
+  { value: 85, suffix: '%', label: 'less manual operations', source: 'Role-based financial automation platform' },
+  { value: 40, suffix: '%', label: 'faster project onboarding', source: 'Onboarding & approval system' },
+  { value: 30, suffix: '%', label: 'faster response time', source: 'Flutter app, offline sync, maps, TTS' },
+];
+
 export const stats: Stat[] = [
   {
     label: 'Years Experience',
