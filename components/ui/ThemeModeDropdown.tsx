@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef } from "react";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { Sun, Moon, Monitor, Check } from "lucide-react";
 import { useTheme } from "@/components/providers/ThemeProvider";
@@ -20,11 +21,12 @@ export const menuItemClass =
 
 export function ThemeModeDropdown() {
   const { mode, setMode } = useTheme();
+  const trigger = useRef<HTMLButtonElement>(null);
   const Current = MODE_OPTIONS.find((o) => o.id === mode)?.icon ?? Moon;
 
   return (
     <DropdownMenu.Root>
-      <DropdownMenu.Trigger className={menuTriggerClass} aria-label="Theme mode">
+      <DropdownMenu.Trigger ref={trigger} className={menuTriggerClass} aria-label="Theme mode">
         <Current className="size-4" />
       </DropdownMenu.Trigger>
       <DropdownMenu.Portal>
@@ -32,7 +34,10 @@ export function ThemeModeDropdown() {
           <DropdownMenu.Label className="px-3 pb-1 pt-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
             Appearance
           </DropdownMenu.Label>
-          <DropdownMenu.RadioGroup value={mode} onValueChange={(v) => setMode(v as DarkMode)}>
+          <DropdownMenu.RadioGroup value={mode} onValueChange={(v) => {
+              const r = trigger.current?.getBoundingClientRect();
+              setMode(v as DarkMode, r ? { x: r.left + r.width / 2, y: r.top + r.height / 2 } : undefined);
+            }}>
             {MODE_OPTIONS.map(({ id, icon: Icon, label }) => (
               <DropdownMenu.RadioItem key={id} value={id} className={menuItemClass}>
                 <Icon className="size-4 text-muted-foreground" />
