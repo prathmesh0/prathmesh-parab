@@ -54,6 +54,7 @@ export interface Project {
   liveUrl?: string;
   githubUrl?: string;
   featured: boolean;
+  inProgress?: boolean;
   category: string;
 }
 

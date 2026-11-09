@@ -182,6 +182,10 @@ export function ProjectsSection() {
                         Live Demo
                       </a>
                     </Button>
+                  ) : project.inProgress ? (
+                    <Badge variant="secondary" className="flex-1 justify-center h-8 text-xs">
+                      In Progress
+                    </Badge>
                   ) : (
                     <div className="flex-1" />
                   )}
