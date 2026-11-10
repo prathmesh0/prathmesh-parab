@@ -1,7 +1,9 @@
 import type { Metadata, Viewport } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Geist, Geist_Mono, Instrument_Serif } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/components/providers/ThemeProvider';
+import { MotionProvider } from '@/components/motion/MotionProvider';
+import { COLOR_VARS } from '@/lib/theme-config';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -12,6 +14,14 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
   subsets: ['latin'],
+  display: 'swap',
+});
+
+const instrumentSerif = Instrument_Serif({
+  variable: '--font-instrument-serif',
+  subsets: ['latin'],
+  weight: '400',
+  style: 'italic',
   display: 'swap',
 });
 
@@ -37,6 +47,7 @@ export const metadata: Metadata = {
     'Mobile Developer',
     'Portfolio',
   ],
+  alternates: { canonical: '/' },
   authors: [{ name: 'Prathmesh Parab', url: 'https://prathmesh-parab-portfolio.vercel.app' }],
   creator: 'Prathmesh Parab',
   icons: {
@@ -82,8 +93,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
-    { media: '(prefers-color-scheme: dark)', color: '#0a0a0a' },
+    { media: '(prefers-color-scheme: light)', color: '#fafaf9' },
+    { media: '(prefers-color-scheme: dark)', color: '#0a0a0b' },
   ],
   width: 'device-width',
   initialScale: 1,
@@ -99,19 +110,13 @@ const themeScript = `
       ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
       : mode;
     document.documentElement.classList.add(resolved);
-    var colorVars = {
-      indigo:  ['239 84% 67%', '#6366f1', '#8b5cf6'],
-      blue:    ['217 91% 60%', '#3b82f6', '#60a5fa'],
-      emerald: ['160 84% 39%', '#10b981', '#34d399'],
-      rose:    ['350 89% 60%', '#f43f5e', '#fb7185'],
-      orange:  ['24 95% 53%',  '#f97316', '#fb923c'],
-      purple:  ['271 91% 65%', '#a855f7', '#c084fc'],
-    };
+    var colorVars = ${JSON.stringify(COLOR_VARS)};
     var cv = colorVars[color] || colorVars.indigo;
-    document.documentElement.style.setProperty('--primary', cv[0]);
-    document.documentElement.style.setProperty('--ring', cv[0]);
-    document.documentElement.style.setProperty('--gradient-start', cv[1]);
-    document.documentElement.style.setProperty('--gradient-end', cv[2]);
+    var st = document.documentElement.style;
+    st.setProperty('--primary', cv.primary);
+    st.setProperty('--ring', cv.ring);
+    st.setProperty('--gradient-start', cv.gradient[0]);
+    st.setProperty('--gradient-end', cv.gradient[0]);
   } catch(e) {}
 })();
 `;
@@ -124,7 +129,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable}`}
+      className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable}`}
       suppressHydrationWarning
     >
       <head>
@@ -132,10 +137,18 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body
-        className="min-h-screen antialiased overflow-x-hidden"
+        className="min-h-screen antialiased overflow-x-clip"
         suppressHydrationWarning
       >
-        <ThemeProvider>{children}</ThemeProvider>
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-foreground focus:px-4 focus:py-2 focus:text-background"
+        >
+          Skip to content
+        </a>
+        <ThemeProvider>
+          <MotionProvider>{children}</MotionProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

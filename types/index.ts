@@ -27,8 +27,18 @@ export interface Experience {
   endDate?: string;
   current: boolean;
   description: string;
-  achievements: string[];
+  projects: ExperienceProject[];
   technologies: string[];
+}
+
+export interface ExperienceProject {
+  name: string;
+  /** Short descriptor shown under the name, e.g. "Education marketplace". */
+  kind: string;
+  description: string;
+  /** Concrete things built, shown as tags. */
+  highlights: string[];
+  current?: boolean;
 }
 
 export interface SkillCategory {
@@ -50,10 +60,17 @@ export interface Project {
   description: string;
   longDescription?: string;
   image: string;
+  /** Intrinsic size of `image`; used to frame it without cropping. */
+  imageWidth?: number;
+  imageHeight?: number;
+  /** Optional screens shown together in the flagship block, in display order (include the main image). */
+  gallery?: { src: string; width: number; height: number }[];
   technologies: string[];
   liveUrl?: string;
   githubUrl?: string;
   featured: boolean;
+  /** Gets a pinned case-study block at the top of Projects (needs an entry in content/case-studies.ts). */
+  flagship?: boolean;
   inProgress?: boolean;
   category: string;
 }

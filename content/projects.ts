@@ -6,11 +6,52 @@ export const projects: Project[] = [
     title: 'RepoLens',
     description:
       'AI-powered developer platform for repository analysis, codebase exploration, file structure visualization, and context-aware assistance.',
-    image: '/images/projects/repolens.png',
+    image: '/images/projects/repolens-v2.png',
+    imageWidth: 1897,
+    imageHeight: 829,
     technologies: ['Next.js', 'TypeScript', 'Express.js', 'MongoDB', 'AI'],
-    liveUrl: 'https://repolens-frontend.vercel.app/login',
+    liveUrl: 'https://repolens-frontend.vercel.app/',
     featured: true,
+    flagship: true,
     category: 'AI / Web',
+  },
+  {
+    id: 'innerbalance',
+    title: 'InnerBalance',
+    description:
+      'A mental wellness platform focused on mood tracking, self-reflection, and improving emotional well-being.',
+    image: '/images/projects/innerbalance.png',
+    imageWidth: 1085,
+    imageHeight: 1450,
+    gallery: [
+      { src: '/images/projects/innerbalance.png', width: 1085, height: 1450 },
+      { src: '/images/projects/innerbalance1.jpeg', width: 720, height: 1600 },
+      { src: '/images/projects/innerbalance2.jpeg', width: 720, height: 1600 },
+    ],
+    technologies: ['Flutter', 'Firebase', 'Express.js', 'Dart'],
+    githubUrl: 'https://github.com/sahilwaradkar/innerbalance',
+    featured: true,
+    flagship: true,
+    category: 'Mobile / Health',
+  },
+  {
+    id: 'simpliadmission',
+    title: 'SimpliAdmission',
+    description:
+      'Helping students simplify college admissions through detailed college insights, cutoffs, and guidance resources.',
+    image: '/images/projects/simpliAdmission.jpeg',
+    imageWidth: 736,
+    imageHeight: 1089,
+    gallery: [
+      { src: '/images/projects/simpliAdmission1.jpeg', width: 720, height: 1600 },
+      { src: '/images/projects/simpliAdmission.jpeg', width: 736, height: 1089 },
+      { src: '/images/projects/simpliAdmission2.jpeg', width: 720, height: 1600 },
+    ],
+    technologies: ['Android', 'Java', 'Firebase'],
+    githubUrl: 'https://github.com/prathmesh0/SimpliAdmission',
+    featured: true,
+    flagship: true,
+    category: 'Mobile / Education',
   },
   {
     id: 'visitlume',
@@ -59,17 +100,6 @@ export const projects: Project[] = [
     category: 'Backend',
   },
   {
-    id: 'innerbalance',
-    title: 'InnerBalance',
-    description:
-      'A mental wellness platform focused on mood tracking, self-reflection, and improving emotional well-being.',
-    image: '/images/projects/innerbalance.png',
-    technologies: ['Flutter', 'Firebase', 'Express.js', 'Dart'],
-    githubUrl: 'https://github.com/sahilwaradkar/innerbalance',
-    featured: true,
-    category: 'Mobile / Health',
-  },
-  {
     id: 'video-streaming',
     title: 'Video Streaming Backend',
     description:
@@ -79,17 +109,6 @@ export const projects: Project[] = [
     githubUrl: 'https://github.com/prathmesh0/video-streaming-backend',
     featured: false,
     category: 'Backend',
-  },
-  {
-    id: 'simpliadmission',
-    title: 'SimpliAdmission',
-    description:
-      'Helping students simplify college admissions through detailed college insights, cutoffs, and guidance resources.',
-    image: '/images/projects/simpliAdmission.jpeg',
-    technologies: ['Android', 'Java', 'Firebase'],
-    githubUrl: 'https://github.com/prathmesh0/SimpliAdmission',
-    featured: false,
-    category: 'Mobile / Education',
   },
   {
     id: 'vortex',

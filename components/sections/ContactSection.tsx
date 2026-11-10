@@ -1,317 +1,131 @@
-'use client';
+"use client";
 
-import { useRef, useState } from 'react';
-import { motion, useInView } from 'framer-motion';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import {
-  Send,
-  Mail,
-  MapPin,
-  CheckCircle2,
-  AlertCircle,
-  Loader2,
-  Briefcase,
-} from 'lucide-react';
-import { GithubIcon, LinkedinIcon } from '@/components/icons/SocialIcons';
-import { Button } from '@/components/ui/button';
-import { profile } from '@/content/profile';
-import { socials } from '@/content/socials';
-import { contactSchema, type ContactFormData } from '@/lib/schemas/contact';
-import { submitContact } from '@/actions/contact';
-import {
-  staggerContainer,
-  fadeInUp,
-  fadeInLeft,
-  fadeInRight,
-} from '@/animations/variants';
-import { cn } from '@/lib/utils';
+import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
+import { ArrowUpRight, Check, Copy } from "lucide-react";
+import { profile } from "@/content/profile";
+import { socials } from "@/content/socials";
+import { EASE_OUT } from "@/lib/motion";
+import { LazyContactForm } from "@/components/sections/LazyContactForm";
+import { SectionLabel } from "@/components/motion/SectionLabel";
+import { SplitLines } from "@/components/motion/SplitLines";
+import { Reveal } from "@/components/motion/Reveal";
 
-const linkedinUrl = socials.find((s) => s.name === 'LinkedIn')?.url ?? '#';
-const githubUrl = socials.find((s) => s.name === 'GitHub')?.url ?? '#';
+const linkedinUrl = socials.find((s) => s.name === "LinkedIn")?.url ?? "#";
+const githubUrl = socials.find((s) => s.name === "GitHub")?.url ?? "#";
 
-const CONTACT_DETAILS = [
-  {
-    icon: Mail,
-    label: 'Email',
-    value: profile.email,
-    href: `mailto:${profile.email}`,
-  },
-  {
-    icon: MapPin,
-    label: 'Location',
-    value: profile.location,
-    href: null,
-  },
-  {
-    icon: LinkedinIcon,
-    label: 'LinkedIn',
-    value: 'Prathmesh Parab',
-    href: linkedinUrl,
-  },
-  {
-    icon: GithubIcon,
-    label: 'GitHub',
-    value: 'prathmesh0',
-    href: githubUrl,
-  },
-];
+function CopyEmail() {
+  const [toast, setToast] = useState<"copied" | "failed" | null>(null);
+  const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
+  useEffect(() => () => clearTimeout(timer.current), []);
 
-export function ContactSection() {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: '-80px' });
-  const [status, setStatus] = useState<
-    'idle' | 'loading' | 'success' | 'error'
-  >('idle');
-
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors, isValid },
-  } = useForm<ContactFormData>({
-    resolver: zodResolver(contactSchema),
-    mode: 'onChange',
-  });
-
-  const onSubmit = async (data: ContactFormData) => {
-    setStatus('loading');
+  const copy = async () => {
     try {
-      const result = await submitContact(data);
-      if (result.success) {
-        setStatus('success');
-        reset();
-        setTimeout(() => setStatus('idle'), 5000);
-      } else {
-        setStatus('error');
-      }
+      await navigator.clipboard.writeText(profile.email);
+      setToast("copied");
     } catch {
-      setStatus('error');
+      setToast("failed"); // clipboard unavailable: the mailto link still works
     }
+    clearTimeout(timer.current);
+    timer.current = setTimeout(() => setToast(null), 1800);
   };
 
   return (
-    <section id="contact" className="section-padding bg-muted/30">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          ref={ref}
-          variants={staggerContainer}
-          initial="hidden"
-          animate={inView ? 'visible' : 'hidden'}
-          className="text-center mb-16"
-        >
-          <motion.p
-            variants={fadeInUp}
-            className="text-primary font-semibold text-sm uppercase tracking-widest mb-2"
-          >
-            Get In Touch
-          </motion.p>
-          <motion.h2
-            variants={fadeInUp}
-            className="text-4xl sm:text-5xl font-black"
-          >
-            Let&apos;s <span className="gradient-text">Connect</span>
-          </motion.h2>
-          <motion.p
-            variants={fadeInUp}
-            className="text-muted-foreground mt-4 max-w-xl mx-auto"
-          >
-            Have a project in mind or just want to say hi? I&apos;m always open
-            to new opportunities and collaborations.
-          </motion.p>
-        </motion.div>
+    <>
+      <button
+        type="button"
+        onClick={copy}
+        className="inline-flex size-11 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+        aria-label="Copy email address"
+      >
+        {toast === "copied" ? <Check className="size-4 text-accent-ink" /> : <Copy className="size-4" />}
+      </button>
+      <div role="status" aria-live="polite" className="pointer-events-none fixed inset-x-0 bottom-8 z-[90] flex justify-center">
+        <AnimatePresence>
+          {toast && (
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 8 }}
+              transition={{ duration: 0.24, ease: EASE_OUT }}
+              className="rounded-full border border-border bg-popover px-4 py-2 font-mono text-xs shadow-lg"
+            >
+              {toast === "copied" ? "Copied" : "Couldn’t copy — use the email link"}
+            </motion.p>
+          )}
+        </AnimatePresence>
+      </div>
+    </>
+  );
+}
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Left - Contact details */}
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            animate={inView ? 'visible' : 'hidden'}
-            className="space-y-6"
-          >
-            <motion.div variants={fadeInLeft}>
-              <h3 className="text-2xl font-bold mb-2">Say Hello 👋</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                Whether you have a project, an opportunity, or just want to
-                connect - feel free to reach out. I typically respond within 24
-                hours.
+const DETAILS = [
+  { label: "Location", value: profile.location, href: null },
+  { label: "LinkedIn", value: "Prathmesh Parab", href: linkedinUrl },
+  { label: "GitHub", value: "prathmesh0", href: githubUrl },
+];
+
+export function ContactSection() {
+  return (
+    <section id="contact" className="section-padding border-t border-border">
+      <div className="container-grid">
+        <div className="grid-12 gap-y-16">
+          <div className="col-span-12 lg:col-span-5">
+            <SectionLabel index="06">Contact</SectionLabel>
+            <SplitLines text={"Let’s build something."} em="something." className="text-display mt-4 !text-[clamp(3rem,7vw,6rem)]" />
+
+            <Reveal delay={0.15}>
+              <p className="prose-measure mt-8 text-lg text-muted-foreground">
+                Have a project in mind or just want to say hi? I&apos;m always open to new opportunities and
+                collaborations. Whether you have a project, an opportunity, or just want to connect — feel free to reach
+                out. I typically respond within 24 hours.
               </p>
-            </motion.div>
 
-            {/* Open to Work badge */}
-            <motion.div variants={fadeInLeft}>
-              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-500/10 border border-green-500/30 text-green-500 text-sm font-medium">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
+              <p className="mt-8 inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm">
+                <span aria-hidden className="relative flex size-2">
+                  <span className="absolute inline-flex size-full animate-ping rounded-full bg-brand opacity-60" />
+                  <span className="relative inline-flex size-2 rounded-full bg-brand" />
                 </span>
                 Open to New Opportunities
-              </span>
-            </motion.div>
+              </p>
 
-            <motion.div variants={fadeInLeft} className="space-y-4">
-              {CONTACT_DETAILS.map(({ icon: Icon, label, value, href }) => (
-                <div key={label} className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-                    <Icon className="h-5 w-5 text-primary" />
+              <dl className="mt-10 border-t border-border">
+                <div className="flex items-center justify-between gap-4 border-b border-border py-3">
+                  <dt className="font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">Email</dt>
+                  <dd className="flex min-w-0 items-center gap-1">
+                    <a href={`mailto:${profile.email}`} className="truncate transition-colors hover:text-accent-ink">
+                      {profile.email}
+                    </a>
+                    <CopyEmail />
+                  </dd>
+                </div>
+                {DETAILS.map((d) => (
+                  <div key={d.label} className="flex items-center justify-between gap-4 border-b border-border py-3">
+                    <dt className="font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">{d.label}</dt>
+                    <dd>
+                      {d.href ? (
+                        <a
+                          href={d.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="group inline-flex min-h-11 items-center gap-1 transition-colors hover:text-accent-ink"
+                        >
+                          {d.value}
+                          <ArrowUpRight className="size-3.5 transition-transform duration-[240ms] group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                        </a>
+                      ) : (
+                        d.value
+                      )}
+                    </dd>
                   </div>
-                  <div>
-                    <p className="text-xs text-muted-foreground uppercase tracking-wider">
-                      {label}
-                    </p>
-                    {href ? (
-                      <a
-                        href={href}
-                        target={
-                          href.startsWith('mailto') ? undefined : '_blank'
-                        }
-                        rel="noopener noreferrer"
-                        className="text-foreground font-medium hover:text-primary transition-colors"
-                      >
-                        {value}
-                      </a>
-                    ) : (
-                      <p className="text-foreground font-medium">{value}</p>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </motion.div>
-          </motion.div>
+                ))}
+              </dl>
+            </Reveal>
+          </div>
 
-          {/* Right - Form */}
-          <motion.div
-            variants={fadeInRight}
-            initial="hidden"
-            animate={inView ? 'visible' : 'hidden'}
-          >
-            <form
-              onSubmit={handleSubmit(onSubmit)}
-              className="bg-card border border-border rounded-2xl p-8 space-y-5"
-            >
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="text-sm font-medium text-foreground mb-1.5 block">
-                    Name
-                  </label>
-                  <input
-                    {...register('name')}
-                    placeholder="John Doe"
-                    className={cn(
-                      'w-full px-4 py-2.5 rounded-lg border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all',
-                      errors.name ? 'border-destructive' : 'border-border',
-                    )}
-                  />
-                  {errors.name && (
-                    <p className="text-xs text-destructive mt-1">
-                      {errors.name.message}
-                    </p>
-                  )}
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-foreground mb-1.5 block">
-                    Email
-                  </label>
-                  <input
-                    {...register('email')}
-                    type="email"
-                    placeholder="john@example.com"
-                    className={cn(
-                      'w-full px-4 py-2.5 rounded-lg border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all',
-                      errors.email ? 'border-destructive' : 'border-border',
-                    )}
-                  />
-                  {errors.email && (
-                    <p className="text-xs text-destructive mt-1">
-                      {errors.email.message}
-                    </p>
-                  )}
-                </div>
-              </div>
-
-              <div>
-                <label className="text-sm font-medium text-foreground mb-1.5 block">
-                  Subject
-                </label>
-                <input
-                  {...register('subject')}
-                  placeholder="Project inquiry"
-                  className={cn(
-                    'w-full px-4 py-2.5 rounded-lg border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all',
-                    errors.subject ? 'border-destructive' : 'border-border',
-                  )}
-                />
-                {errors.subject && (
-                  <p className="text-xs text-destructive mt-1">
-                    {errors.subject.message}
-                  </p>
-                )}
-              </div>
-
-              <div>
-                <label className="text-sm font-medium text-foreground mb-1.5 block">
-                  Message
-                </label>
-                <textarea
-                  {...register('message')}
-                  rows={5}
-                  placeholder="Tell me about your project..."
-                  className={cn(
-                    'w-full px-4 py-2.5 rounded-lg border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all resize-none',
-                    errors.message ? 'border-destructive' : 'border-border',
-                  )}
-                />
-                {errors.message && (
-                  <p className="text-xs text-destructive mt-1">
-                    {errors.message.message}
-                  </p>
-                )}
-              </div>
-
-              {/* Status messages */}
-              {status === 'success' && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="flex items-center gap-2 text-green-600 bg-green-500/10 border border-green-500/20 rounded-lg px-4 py-3 text-sm"
-                >
-                  <CheckCircle2 className="h-4 w-4 shrink-0" />
-                  Message sent! I&apos;ll get back to you soon.
-                </motion.div>
-              )}
-
-              {status === 'error' && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="flex items-center gap-2 text-destructive bg-destructive/10 border border-destructive/20 rounded-lg px-4 py-3 text-sm"
-                >
-                  <AlertCircle className="h-4 w-4 shrink-0" />
-                  Something went wrong. Please try again.
-                </motion.div>
-              )}
-
-              <Button
-                type="submit"
-                variant="gradient"
-                size="lg"
-                className="w-full"
-                disabled={!isValid || status === 'loading'}
-              >
-                {status === 'loading' ? (
-                  <>
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                    Sending...
-                  </>
-                ) : (
-                  <>
-                    <Send className="h-4 w-4" />
-                    Send Message
-                  </>
-                )}
-              </Button>
-            </form>
-          </motion.div>
+          <Reveal className="col-span-12 lg:col-span-6 lg:col-start-7">
+            <LazyContactForm />
+          </Reveal>
         </div>
       </div>
     </section>
