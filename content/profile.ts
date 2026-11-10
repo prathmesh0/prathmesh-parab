@@ -15,15 +15,16 @@ export const profile: Profile = {
     'Building impactful products that solve meaningful problems and create lasting value for users. 🚀',
   email: 'prathmeshparab010@gmail.com',
   location: 'Mumbai, India',
-  avatar: '/images/myp.png',
+  avatar: '/images/myp.jpeg',
   resume: '/resume.pdf',
 };
 
 /** Verified metrics from the experience entry (shown in the impact strip). */
 export const impactMetrics = [
-  { value: 85, suffix: '%', label: 'less manual operations', source: 'Role-based financial automation platform' },
-  { value: 40, suffix: '%', label: 'faster project onboarding', source: 'Onboarding & approval system' },
-  { value: 30, suffix: '%', label: 'faster response time', source: 'Flutter app, offline sync, maps, TTS' },
+  { value: 100, suffix: '%', label: 'automated route time calculation', source: 'Transportation management platform · route setup, Google Maps API' },
+  { value: 85, suffix: '%', label: 'less manual operations', source: 'SecuritizePro · role-based financial automation platform' },
+  { value: 40, suffix: '%', label: 'faster project onboarding', source: 'PMO (Project Management Operations) · onboarding, approvals & RFP assignment' },
+  { value: 30, suffix: '%', label: 'faster response time', source: 'Offline data sync POC · Flutter, maps, TTS' },
 ];
 
 export const stats: Stat[] = [

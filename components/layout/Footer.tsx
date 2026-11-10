@@ -1,20 +1,13 @@
 import { ArrowUp } from "lucide-react";
 import { profile } from "@/content/profile";
-import { SplitLines } from "@/components/motion/SplitLines";
 import { LocalTime } from "@/components/shared/LocalTime";
 import { ScrollLink } from "@/components/shared/ScrollLink";
 
 export function Footer() {
   return (
-    <footer className="border-t border-border pb-8 pt-16">
+    <footer className="border-t border-border py-8">
       <div className="container-grid">
-        <SplitLines
-          as="p"
-          text={profile.name}
-          className="text-[clamp(3rem,11vw,10rem)] font-medium leading-[0.95] tracking-[-0.04em]"
-        />
-
-        <div className="mt-16 flex flex-col gap-4 border-t border-border pt-6 font-mono text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:pr-16">
+        <div className="flex flex-col gap-4 font-mono text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:pr-16">
           <p>© {new Date().getFullYear()} {profile.name}</p>
           <p>
             {profile.location} · <LocalTime />

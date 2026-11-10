@@ -18,6 +18,22 @@ export const caseStudies: Record<string, CaseStudy> = {
     result:
       "One place to explore a repository, see how it is laid out and ask questions about it. Live and usable today.",
   },
+  innerbalance: {
+    problem:
+      "Mental wellness tools often feel clinical, and tracking how you feel day to day is easy to abandon.",
+    approach:
+      "A mobile wellness app built around mood tracking, self-assessment and reflection, with a calm dark interface. Flutter and Dart on the client, Firebase and an Express.js service behind it.",
+    result:
+      "A single, gentle place to log your mood, reflect and check in on your emotional well-being.",
+  },
+  simpliadmission: {
+    problem:
+      "Students choosing a college piece together cutoffs, rankings and fees from scattered sources.",
+    approach:
+      "An Android app that brings college insights, cutoff-based prediction, side-by-side comparison and scholarship guidance into one dashboard. Built in Java with Firebase.",
+    result:
+      "Admission research in one app, from browsing colleges to comparing them and planning funding.",
+  },
   smartvault: {
     problem:
       "Uploaded documents pile up unlabelled, and users get no feedback while a file is being processed.",

@@ -36,7 +36,7 @@ export function CursorPreview({ src, visible }: { src: string | null; visible: b
       animate={{ opacity: visible ? 1 : 0, scale: visible ? 1 : 0.94 }}
       transition={{ duration: 0.18 }}
     >
-      <Image src={src} alt="" fill sizes="240px" className="object-cover" />
+      <Image src={src} alt="" fill sizes="240px" className="object-cover object-top" />
     </motion.div>
   );
 }

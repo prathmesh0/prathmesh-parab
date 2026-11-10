@@ -162,13 +162,13 @@ body {
   column-gap: var(--gutter);
 }
 .section-padding {
-  padding-top: 5rem;
-  padding-bottom: 5rem;
+  padding-top: 3.5rem;
+  padding-bottom: 3.5rem;
 }
 @media (min-width: 768px) {
   .section-padding {
-    padding-top: 8rem;
-    padding-bottom: 8rem;
+    padding-top: 5.5rem;
+    padding-bottom: 5.5rem;
   }
 }
 
@@ -200,6 +200,16 @@ body {
 .intro-up { animation: intro-up 0.7s var(--ease-out) both; animation-delay: var(--d, 0s); }
 .word-up { display: inline-block; animation: word-up 0.8s var(--ease-out) both; animation-delay: var(--d, 0s); }
 .clip-in { animation: clip-in 0.9s var(--ease-out) 0.1s both; }
+
+/* Skills marquee: right-to-left loop; track holds two identical copies */
+@keyframes marquee-rtl { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-rtl var(--marquee-speed, 40s) linear infinite;
+}
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track { animation-play-state: paused; }
 
 /* ─── Reduced motion: fades only, no smooth scroll ──────────── */
 @media (prefers-reduced-motion: reduce) {

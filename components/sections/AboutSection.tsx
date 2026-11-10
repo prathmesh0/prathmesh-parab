@@ -36,25 +36,20 @@ export function AboutSection() {
             <div className="prose-measure space-y-6 text-lg text-muted-foreground">
               <RevealLines>
                 I&apos;m a <strong className="font-medium text-foreground">Software Engineer</strong>&nbsp;passionate about
-                building impactful products that solve real-world problems and deliver meaningful user experiences.
-                Over the past 2+ years, I&apos;ve worked on enterprise platforms, AI-powered solutions, transportation
-                systems, and mobile applications, contributing from concept to production.
+                building products that solve real problems. Over 2+ years, I&apos;ve shipped enterprise platforms,
+                AI-powered solutions, transportation systems and mobile apps, from concept to production.
               </RevealLines>
               <RevealLines>
-                Beyond coding, I enjoy understanding business needs, collaborating with cross-functional teams, and
-                turning complex requirements into scalable, user-centric solutions. I&apos;ve had the opportunity to
-                work closely with multiple clients and stakeholders, including US-based organizations, gaining valuable
-                experience in translating business goals into successful product outcomes while navigating diverse
-                requirements and expectations.
+                I work closely with clients and stakeholders, including US-based teams, turning complex business
+                requirements into scalable, user-centric software.
               </RevealLines>
               <RevealLines>
-                Outside of work, I enjoy exploring emerging technologies, building personal products, and continuously
-                challenging myself to learn and grow. I believe great software goes beyond clean code, it&apos;s about
-                solving meaningful problems and creating value for users and businesses.
+                Outside work, I explore emerging tech and build personal products. Great software goes beyond clean
+                code. It creates real value for users and businesses.
               </RevealLines>
             </div>
 
-            <ol className="mt-16 grid border-t border-border sm:grid-cols-2">
+            <ol className="mt-12 grid border-t border-border sm:grid-cols-2">
               {PILLARS.map((p, i) => (
                 <li
                   key={p.title}

@@ -1,20 +1,20 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
-import { AnimatePresence, motion, useScroll, useTransform } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import { ArrowUpRight, Search, SearchX } from "lucide-react";
 import type { BlogPost } from "@/types";
 import { MEDIUM_PROFILE_URL } from "@/lib/medium";
 import { formatDate } from "@/lib/utils";
 import { EASE_OUT, SPRING_UI } from "@/lib/motion";
-import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { SectionLabel } from "@/components/motion/SectionLabel";
 import { SplitLines } from "@/components/motion/SplitLines";
 import { Reveal } from "@/components/motion/Reveal";
 
 const INITIAL_VISIBLE = 3;
 
+/** Shows the whole image (never crops), so titles baked into cover art stay readable. */
 function Cover({ src, alt }: { src: string; alt: string }) {
   const [errored, setErrored] = useState(false);
   if (!src || errored) return <div aria-hidden className="size-full bg-accent" />;
@@ -24,7 +24,7 @@ function Cover({ src, alt }: { src: string; alt: string }) {
       alt={alt}
       fill
       sizes="(min-width: 1024px) 700px, 100vw"
-      className="object-cover"
+      className="object-contain"
       onError={() => setErrored(true)}
       unoptimized
     />
@@ -32,18 +32,11 @@ function Cover({ src, alt }: { src: string; alt: string }) {
 }
 
 function FeaturedPost({ post }: { post: BlogPost }) {
-  const frame = useRef<HTMLDivElement>(null);
-  const reduced = useReducedMotion();
-  const { scrollYProgress } = useScroll({ target: frame, offset: ["start end", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
-
   return (
     <Reveal>
-      <a href={post.url} target="_blank" rel="noopener noreferrer" className="group grid-12 items-end gap-y-8">
-        <div ref={frame} className="relative col-span-12 aspect-[16/10] overflow-hidden rounded-sm border border-border bg-surface lg:col-span-7">
-          <motion.div className="absolute -inset-[10%]" style={reduced ? undefined : { y }}>
-            <Cover src={post.coverImage} alt="" />
-          </motion.div>
+      <a href={post.url} target="_blank" rel="noopener noreferrer" className="group grid-12 items-center gap-y-8">
+        <div className="relative col-span-12 aspect-[16/10] overflow-hidden rounded-sm border border-border bg-surface lg:col-span-7">
+          <Cover src={post.coverImage} alt="" />
         </div>
         <div className="col-span-12 lg:col-span-5">
           <p className="font-mono text-xs text-muted-foreground">
@@ -196,7 +189,7 @@ export function BlogsClient({ initialPosts, initialFailed }: Props) {
             {featured && <FeaturedPost post={featured} />}
 
             {rest.length > 0 && (
-              <ul className={featured ? "mt-16 border-t border-border" : "border-t border-border"}>
+              <ul className={featured ? "mt-12 border-t border-border" : "border-t border-border"}>
                 <AnimatePresence mode="popLayout" initial={false}>
                   {visibleRest.map((p) => (
                     <PostRow key={p.id} post={p} />

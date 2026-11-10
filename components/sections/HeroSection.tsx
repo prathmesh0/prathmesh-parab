@@ -12,7 +12,7 @@ import { HeroSpotlight } from "@/components/sections/HeroSpotlight";
 
 export function HeroSection() {
   return (
-    <section id="home" className="relative overflow-hidden pb-16 pt-32 md:pt-40">
+    <section id="home" className="relative overflow-hidden pb-10 pt-28 md:pt-36">
       <HeroSpotlight targetId="home" />
 
       <div className="container-grid">
@@ -72,13 +72,13 @@ export function HeroSection() {
             </div>
           </div>
 
-          <div className="col-span-12 w-full max-w-[16rem] sm:max-w-[17rem] lg:col-span-4 lg:max-w-[18rem] lg:self-end lg:justify-self-end">
+          <div className="col-span-12 w-full max-w-[16rem] sm:max-w-[17rem] lg:col-span-4 lg:max-w-[18rem] lg:self-center lg:justify-self-end">
             <HeroPortrait src={profile.avatar} alt={`Portrait of ${profile.name}`} />
           </div>
         </div>
 
         <div className="intro-up" style={{ "--d": "0.45s" } as CSSProperties}>
-          <ul className="mt-16 flex flex-wrap border-t border-border font-mono text-sm">
+          <ul className="mt-12 flex flex-wrap border-t border-border font-mono text-sm">
             {socials.map((s) => (
               <li key={s.name}>
                 <a

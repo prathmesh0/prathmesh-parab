@@ -45,6 +45,10 @@ export function FlagshipBlock({ project, study, index, total }: Props) {
   const reduced = useReducedMotion();
   const pinned = canPin && !reduced;
   const root = useRef<HTMLElement>(null);
+  // Landscape shots fill a frame of their own ratio (no cropping); portrait/phone shots sit
+  // fully visible inside a fixed 16:10 frame.
+  const ratio = project.imageWidth && project.imageHeight ? project.imageWidth / project.imageHeight : 16 / 10;
+  const landscape = ratio >= 1.2;
 
   useEffect(() => {
     const el = root.current;
@@ -92,7 +96,7 @@ export function FlagshipBlock({ project, study, index, total }: Props) {
     <article
       ref={root}
       aria-label={`${project.title} case study`}
-      className={cn("border-t border-border", pinned ? "flex h-svh items-center" : "py-16")}
+      className={cn("border-t border-border", pinned ? "flex h-svh items-center" : "py-12")}
     >
       <div className="container-grid w-full">
         <div className="grid-12 items-center gap-y-10">
@@ -107,15 +111,44 @@ export function FlagshipBlock({ project, study, index, total }: Props) {
           </Reveal>
 
           <div className="col-span-12 lg:col-span-7">
-            <div className="relative aspect-[16/10] overflow-hidden rounded-sm border border-border bg-surface">
-              <Image
-                src={project.image}
-                alt={`${project.title} preview`}
-                fill
-                sizes="(min-width: 1024px) 700px, 100vw"
-                className="object-cover"
-              />
-            </div>
+            {project.gallery && project.gallery.length > 1 ? (
+              // Screens share one height: each item's width follows its own aspect ratio, so nothing is cropped.
+              <ul className="flex items-start gap-3 sm:gap-4">
+                {project.gallery.map((g, i) => {
+                  const r = g.width / g.height;
+                  return (
+                    <li
+                      key={g.src}
+                      className="relative overflow-hidden rounded-xl border border-border bg-surface shadow-sm"
+                      style={{ flex: r, aspectRatio: r }}
+                    >
+                      <Image
+                        src={g.src}
+                        alt={`${project.title} screen ${i + 1}`}
+                        fill
+                        sizes="(min-width: 1024px) 260px, 33vw"
+                        className="object-cover"
+                        priority={index === 0 && i === 0}
+                      />
+                    </li>
+                  );
+                })}
+              </ul>
+            ) : (
+              <div
+                className="relative overflow-hidden rounded-sm border border-border bg-surface"
+                style={{ aspectRatio: landscape ? ratio : 16 / 10 }}
+              >
+                <Image
+                  src={project.image}
+                  alt={`${project.title} preview`}
+                  fill
+                  sizes="(min-width: 1024px) 700px, 100vw"
+                  className={landscape ? "object-cover object-top" : "object-contain p-4"}
+                  priority={index === 0}
+                />
+              </div>
+            )}
 
             {pinned ? (
               <div className="mt-6">

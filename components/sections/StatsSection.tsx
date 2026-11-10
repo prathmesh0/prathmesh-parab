@@ -7,9 +7,12 @@ export function StatsSection() {
   return (
     <section aria-label="Impact" className="border-y border-border">
       <div className="container-grid">
-        <ul className="grid divide-y divide-border sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+        <ul className="grid divide-y divide-border sm:grid-cols-2 sm:divide-y-0 lg:grid-cols-4">
           {impactMetrics.map((m, i) => (
-            <li key={m.label} className="sm:first:[&>div]:pl-0 sm:last:[&>div]:pr-0">
+            <li
+              key={m.label}
+              className="sm:odd:border-r sm:border-border sm:max-lg:odd:[&>div]:pl-0 sm:max-lg:even:[&>div]:pr-0 sm:[&:nth-child(n+3)]:border-t lg:border-r lg:[&:nth-child(n+3)]:border-t-0 lg:last:border-r-0 lg:first:[&>div]:pl-0 lg:last:[&>div]:pr-0"
+            >
               <Reveal delay={i * 0.05} className="py-8 sm:px-8">
                 <p className="text-5xl font-medium tracking-tight md:text-6xl">
                   <CountUp value={m.value} suffix={m.suffix} />
