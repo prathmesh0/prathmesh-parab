@@ -53,7 +53,7 @@ export function ProjectsSection() {
             aria-expanded={showAll}
             aria-controls="more-projects"
             onClick={() => (showAll ? collapse() : setShowAll(true))}
-            className="inline-flex h-11 items-center gap-2 rounded-full border border-border px-5 font-mono text-sm transition-colors duration-[140ms] hover:border-brand"
+            className="inline-flex h-11 items-center gap-2 rounded-full border border-border px-5 font-mono text-sm transition-[border-color,transform] duration-[140ms] hover:border-brand active:scale-[0.97]"
           >
             {showAll ? "Show fewer" : "Explore all projects"}
             {showAll ? <ArrowUp className="size-4" aria-hidden /> : <ArrowDown className="size-4" aria-hidden />}
@@ -65,11 +65,11 @@ export function ProjectsSection() {
             {showAll && (
               <motion.div
                 key="more"
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.3, ease: EASE_OUT }}
-                className="mt-8"
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.45, ease: EASE_OUT }}
+                className="overflow-hidden pt-8"
               >
                 <div role="group" aria-label="Filter projects" className="mb-8 flex flex-wrap gap-2">
                   {FILTERS.map((f) => (

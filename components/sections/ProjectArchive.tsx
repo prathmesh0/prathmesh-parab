@@ -10,13 +10,13 @@ import { EASE_OUT, SPRING_UI } from "@/lib/motion";
 export function ProjectArchive({ projects }: { projects: Project[] }) {
   return (
     <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-      <AnimatePresence mode="popLayout" initial={false}>
+      <AnimatePresence mode="popLayout">
         {projects.map((p, i) => (
           <motion.li
             key={p.id}
             layout
             initial={{ opacity: 0, scale: 0.97 }}
-            animate={{ opacity: 1, scale: 1 }}
+            animate={{ opacity: 1, scale: 1, transition: { duration: 0.32, ease: EASE_OUT, delay: (i % 3) * 0.06 } }}
             exit={{ opacity: 0, scale: 0.97 }}
             transition={{ duration: 0.24, ease: EASE_OUT, layout: SPRING_UI }}
             className="group list-none"

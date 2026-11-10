@@ -272,7 +272,7 @@ export function SkillsSection() {
               <button
                 type="button"
                 onClick={() => (explore ? resume() : setExplore(true))}
-                className="inline-flex h-11 shrink-0 items-center gap-2 rounded-full border border-border px-4 font-mono text-xs transition-colors duration-[140ms] hover:border-brand"
+                className="inline-flex h-11 shrink-0 items-center gap-2 rounded-full border border-border px-4 font-mono text-xs transition-[border-color,transform] duration-[140ms] hover:border-brand active:scale-[0.97]"
               >
                 {explore ? (
                   <Play className="size-3.5" aria-hidden />
@@ -312,15 +312,15 @@ export function SkillsSection() {
                 transition={{ duration: 0.24, ease: EASE_OUT }}
               >
                 <ul className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                  <AnimatePresence mode="popLayout" initial={false}>
-                    {groups.map((cat) => {
+                  <AnimatePresence mode="popLayout">
+                    {groups.map((cat, ci) => {
                       const CatIcon = CATEGORY_ICONS[cat.icon] ?? Code2;
                       return (
                         <motion.li
                           key={cat.id}
                           layout
                           initial={{ opacity: 0, scale: 0.97 }}
-                          animate={{ opacity: 1, scale: 1 }}
+                          animate={{ opacity: 1, scale: 1, transition: { duration: 0.32, ease: EASE_OUT, delay: (ci % 3) * 0.06 } }}
                           exit={{ opacity: 0, scale: 0.97 }}
                           transition={{
                             duration: 0.24,
@@ -344,7 +344,7 @@ export function SkillsSection() {
                             {cat.skills.map((s) => (
                               <li
                                 key={s.name}
-                                className="inline-flex items-center gap-2 rounded-lg bg-secondary px-3 py-1.5 text-sm transition-colors duration-[140ms] hover:text-accent-ink"
+                                className="inline-flex items-center gap-2 rounded-lg bg-secondary px-3 py-1.5 text-sm transition-[color,transform] duration-[140ms] hover:-translate-y-0.5 hover:text-accent-ink"
                               >
                                 <SkillIcon name={s.name} Fallback={CatIcon} />
                                 <span>

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Image from "next/image";
+import { motion } from "motion/react";
 import type { Project } from "@/types";
 import type { CaseStudy } from "@/content/case-studies";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
@@ -10,6 +11,7 @@ import { loadGsap } from "@/lib/gsap";
 import { Reveal } from "@/components/motion/Reveal";
 import { ProjectLinks } from "@/components/sections/ProjectLinks";
 import { cn } from "@/lib/utils";
+import { EASE_OUT } from "@/lib/motion";
 
 const STEPS = ["Problem", "Approach", "Result", "Stack"] as const;
 
@@ -117,10 +119,14 @@ export function FlagshipBlock({ project, study, index, total }: Props) {
                 {project.gallery.map((g, i) => {
                   const r = g.width / g.height;
                   return (
-                    <li
+                    <motion.li
                       key={g.src}
                       className="relative overflow-hidden rounded-xl border border-border bg-surface shadow-sm"
                       style={{ flex: r, aspectRatio: r }}
+                      initial={{ opacity: 0, y: reduced ? 0 : 24 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: "0px 0px -10% 0px" }}
+                      transition={{ duration: 0.7, ease: EASE_OUT, delay: reduced ? 0 : i * 0.1 }}
                     >
                       <Image
                         src={g.src}
@@ -130,7 +136,7 @@ export function FlagshipBlock({ project, study, index, total }: Props) {
                         className="object-cover"
                         priority={index === 0 && i === 0}
                       />
-                    </li>
+                    </motion.li>
                   );
                 })}
               </ul>
