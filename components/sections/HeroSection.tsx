@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import Image from "next/image";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
 import { profile } from "@/content/profile";
 import { socials } from "@/content/socials";
@@ -18,7 +19,16 @@ export function HeroSection() {
       <div className="container-grid">
         <div className="grid-12 gap-y-12">
           <div className="col-span-12 lg:col-span-8">
-            <div className="intro-up">
+            <div className="intro-up flex items-center gap-4">
+              <div className="relative size-16 shrink-0 overflow-hidden rounded-full border border-border bg-surface sm:size-20 lg:hidden">
+                <Image
+                  src={profile.avatar}
+                  alt={`Portrait of ${profile.name}`}
+                  fill
+                  sizes="80px"
+                  className="object-cover object-[50%_30%]"
+                />
+              </div>
               <p className="flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-xs text-muted-foreground">
                 <span className="inline-flex items-center gap-2">
                   <span aria-hidden className="relative flex size-2">
@@ -72,7 +82,7 @@ export function HeroSection() {
             </div>
           </div>
 
-          <div className="col-span-12 w-full max-w-[16rem] sm:max-w-[17rem] lg:col-span-4 lg:max-w-[18rem] lg:self-center lg:justify-self-end">
+          <div className="hidden w-full lg:col-span-4 lg:block lg:max-w-[18rem] lg:self-center lg:justify-self-end">
             <HeroPortrait src={profile.avatar} alt={`Portrait of ${profile.name}`} />
           </div>
         </div>
